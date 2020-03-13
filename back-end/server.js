@@ -3,7 +3,8 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 
-
+// Require Route Files
+const userRouter = require('./routes/user');
 
 // Require DB Configuration File
 const db = require('./config/db');
@@ -13,6 +14,7 @@ mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connection.once('open', () => {
   console.log('Connected to Mongo');
 });
+
 
 
 // Instantiate Express Application Object
@@ -30,9 +32,12 @@ const reactPort = 3000;
 // The method `.use` sets up middleware for the Express application
 app.use(express.json());
 
+
 // Set CORS headers on response from this API using the `cors` NPM package.
 app.use(cors({ origin: process.env.CLIENT_ORIGIN || `http://localhost:${reactPort}` }))
 
+// Mount imported Routers
+app.use(userRouter);
 
 // Start the server to listen for requests on a given port
 app.listen(port, () => {
