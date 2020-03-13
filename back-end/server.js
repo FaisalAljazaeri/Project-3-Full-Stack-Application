@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 
 // Require Route Files
 const userRouter = require('./routes/user');
+const organizationRouter = require('./routes/organization');
 
 // Require DB Configuration File
 const db = require('./config/db');
@@ -38,6 +39,7 @@ app.use(cors({ origin: process.env.CLIENT_ORIGIN || `http://localhost:${reactPor
 
 // Mount imported Routers
 app.use(userRouter);
+app.use(organizationRouter);
 
 // Start the server to listen for requests on a given port
 app.listen(port, () => {
