@@ -1,11 +1,12 @@
 // Creating a base name for the MongoDB
-const mongooseBaseName = 'Project3';
+const mongooseBaseName = "Project3";
 
 // Create the MongoDB URI for Development and Test
 const database = {
-  development: `mongodb://localhost/${mongooseBaseName}-development`,
-  test: `mongodb://localhost/${mongooseBaseName}-test`,
-}
+    development:
+        "mongodb+srv://root:1234@cluster0-0bpiu.mongodb.net/test?retryWrites=true&w=majority",
+    test: `mongodb://localhost/${mongooseBaseName}-test`
+};
 
 // Identify if development environment is Test or Development
 // select DB based on wether a test file was executed before `server.js`
