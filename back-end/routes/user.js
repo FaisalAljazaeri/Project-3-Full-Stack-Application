@@ -8,6 +8,22 @@ const User = require("../model/User");
 const router = express.Router();
 
 /**
+ * @method : GET
+ * @route : /api/user
+ * @action :  index
+ * @desc    : get all user
+ */
+router.get("/api/user", (req, res) => {
+  User.find()
+    .then(user => {
+      res.status(200).json({ users: user });
+    })
+    //catch any errors that may accours
+    .catch(error => {
+      res.status(500).json({ error: error });
+    });
+});
+/**
  * @method POST
  * @route   /api/users
  * @action  CREATE
