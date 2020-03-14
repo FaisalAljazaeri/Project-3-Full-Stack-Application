@@ -70,6 +70,39 @@ router.post("/api/posts", (req, res) => {
 });
 
 
+/**
+ * @method PATCH
+ * @route   /api/posts/:id
+ * @action  UPDATE
+ * @desc    Update a posts by ID
+ */
+router.patch("/api/posts/:id", (req, res) => {
+    // Find the post with the passed ID
+    Post.findById(req.params.id)
+        .then(post => {
+            // Check if a post is found by the passed ID
+            if (post) {
+                // Update the existing post with the new data from the request body
+                return post.update(req.body.posts);
+            
+            } else {
+                // If no post was found by the passed ID, send an error message as response
+                res.status(404).json({
+                    error: {
+                        name: "DocumentNotFoundError",
+                        message: "The provided ID doesn't match any documents"
+                    }
+                });
+            }
+        })
+        .then(() => {
+            // If the update succeeded, return 204 and no JSON response
+            res.status(204).end();
+        })
+        .catch(error => res.status(500).json({ error }));
+});
+
+
 
 //export the Router 
 module.exports = router;
