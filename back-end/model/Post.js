@@ -1,5 +1,6 @@
 // Require necessary NPM packages
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 // Define Article Schema
 const postSchema = new mongoose.Schema({
