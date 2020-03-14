@@ -48,12 +48,26 @@ router.get('/api/posts/:id', (req, res) => {
           }
         })
 
-        
+
         // Catch any errors that might occur
         .catch((error) => {
           res.status(500).json({ error: error });
         })
     });
+
+
+/**
+ * @method POST
+ * @route   /api/posts
+ * @action  CREATE
+ * @desc    Create a new posts
+ */
+router.post("/api/posts", (req, res) => {
+    // Add the organizations recieved from the request body to the database
+    Post.create(req.body.post)
+        .then(post => res.status(201).json({ post }))
+        .catch(error => res.status(500).json({ error }));
+});
 
 
 
