@@ -27,7 +27,32 @@ router.get('/api/organizations', (req, res) => {
       res.status(500).json({ error: error });
     });
   });
-  
+  /**
+ * @method GET
+ * @route  /api/organizations:id
+ * @action  SHOW
+ * @desc    Get An organizations by organizations ID
+ */
+router.get('/api/organizations/:id', (req, res) => {
+    Organization.findById(req.params.id)
+        .then((organization) => {
+          if (organization) {
+            res.status(200).json({organizations: organization});
+          } else {
+            // If we couldn't find a document with the matching ID
+            res.status(404).json({
+              error: {
+                name: 'DocumentNotFoundError',
+                message: 'The provided ID doesn\'t match any documents'
+              }
+            });
+          }
+        })
+        // Catch any errors that might occur
+        .catch((error) => {
+          res.status(500).json({ error: error });
+        })
+    });
   
  
 /**
