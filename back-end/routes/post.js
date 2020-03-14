@@ -14,6 +14,8 @@ const router = express.Router();
  */
 router.get('/api/posts', (req, res) => {
     Post.find()
+        .populate("organization", "name")
+        .populate("users", "name")
     // Return all post as an Array
     .then((post) => {
       res.status(200).json({ post });
@@ -34,6 +36,8 @@ router.get('/api/posts', (req, res) => {
  */
 router.get('/api/posts/:id', (req, res) => {
     Post.findById(req.params.id)
+        .populate("organization", "name")
+        .populate("users", "name")
         .then((post) => {
           if (post) {
             res.status(200).json({posts: post});
