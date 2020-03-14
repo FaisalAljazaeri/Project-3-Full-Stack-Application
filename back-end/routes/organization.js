@@ -8,8 +8,28 @@ const Organization = require('../model/Organization')
 const router = express.Router();
 
 
-  
 
+/**
+ * @method GET
+ * @route  /api/organizations
+ * @action  INDEX
+ * @desc    Get All organizations 
+ */
+router.get('/api/organizations', (req, res) => {
+    Organization.find()
+    // Return all organization as an Array
+    .then((organization) => {
+      res.status(200).json({ organizations: organization });
+      console.log(organizations)
+    })
+    // Catch any errors that might occur
+    .catch((error) => {
+      res.status(500).json({ error: error });
+    });
+  });
+  
+  
+ 
 /**
  * @method POST
  * @route   /api/organizations
@@ -55,8 +75,6 @@ router.delete("/api/organizations/:id", (req, res) => {
         })
         .catch(error => res.status(500).json({ error }));
 });
-
-
 
 
 
