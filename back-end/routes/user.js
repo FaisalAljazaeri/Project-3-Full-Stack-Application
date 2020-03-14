@@ -23,6 +23,33 @@ router.get("/api/user", (req, res) => {
       res.status(500).json({ error: error });
     });
 });
+
+/**
+ * @method : GET
+ * @route : /api/user/id
+ * @action :  Show
+ * @desc    : get an user by user ID
+ */
+router.get("/api/user/:id", (req, res) => {
+  User.findById(req.params.id)
+    .then(user => {
+      if (user) {
+        res.status(200).json({ users: user });
+      } else {
+        // if we coudn't find a document with matching ID
+        res.status(404).json({
+          error: {
+            name: "DocumentNotFoundError ",
+            message: "The  providednId dosen't match any documents"
+          }
+        });
+      }
+    })
+    //catch any errors that may accours
+    .catch(error => {
+      res.status(500).json({ error: error });
+    });
+});
 /**
  * @method POST
  * @route   /api/users
