@@ -27,7 +27,9 @@ router.get('/api/organizations', (req, res) => {
       res.status(500).json({ error: error });
     });
   });
-  /**
+
+
+/**
  * @method GET
  * @route  /api/organizations:id
  * @action  SHOW
@@ -67,7 +69,6 @@ router.post("/api/organizations", (req, res) => {
         .then(organization => res.status(201).json({ organization }))
         .catch(error => res.status(500).json({ error }));
 });
-
 
 
 /**
@@ -133,6 +134,7 @@ router.patch("/api/organizations/:id", (req, res) => {
         })
         .catch(error => res.status(500).json({ error }));
 });
+
 
 
 //export the Router 
