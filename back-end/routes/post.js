@@ -103,6 +103,38 @@ router.patch("/api/posts/:id", (req, res) => {
 });
 
 
+/**
+ * @method DELETE
+ * @route   /api/posts/id
+ * @action  DESTROY
+ * @desc    Delete An post by post ID
+ */
+router.delete("/api/posts/:id", (req, res) => {
+    // Find the post with the passed ID
+    Post.findById(req.params.id)
+        .then(post => {
+            // Check if a post is found by the passed ID
+            if (post) {
+               // pass the result of Mongoose's  .delete method to next.then statment
+                return post.delete();
+            } else {
+                // If no user was found by the passed ID, send an error message as response
+                res.status(404).json({
+                    error: {
+                        name: "DocumentNotFoundError",
+                        message: "The provided ID doesn't match any documents"
+                    }
+                });
+            }
+        })
+        .then(() => {
+            // If the update succeeded, return 204 and no JSON response
+            res.status(204).end();
+        })
+        .catch(error => res.status(500).json({ error }));
+});
+
+
 
 //export the Router 
 module.exports = router;
