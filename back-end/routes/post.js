@@ -26,6 +26,35 @@ router.get('/api/posts', (req, res) => {
   });
 
 
+/**
+ * @method GET
+ * @route  /api/posts:id
+ * @action  SHOW
+ * @desc    Get An posts by posts ID
+ */
+router.get('/api/posts/:id', (req, res) => {
+    Post.findById(req.params.id)
+        .then((post) => {
+          if (post) {
+            res.status(200).json({posts: post});
+          } else {
+            // If we couldn't find a document with the matching ID
+            res.status(404).json({
+              error: {
+                name: 'DocumentNotFoundError',
+                message: 'The provided ID doesn\'t match any documents'
+              }
+            });
+          }
+        })
+
+        
+        // Catch any errors that might occur
+        .catch((error) => {
+          res.status(500).json({ error: error });
+        })
+    });
+
 
 
 //export the Router 

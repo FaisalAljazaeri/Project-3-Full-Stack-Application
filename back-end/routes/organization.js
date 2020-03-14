@@ -29,7 +29,7 @@ router.get('/api/organizations', (req, res) => {
   });
 
 
-  /**
+/**
  * @method GET
  * @route  /api/organizations:id
  * @action  SHOW
