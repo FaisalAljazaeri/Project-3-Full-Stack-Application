@@ -15,7 +15,7 @@ mongoose.connect(
 const Posts = [{ 
 //Ekhaa Org
     title: "Helping Orphans",
-    photo: "http://www.alriyadh.com/media/thumb/db/6c/1000_7312d6997c.jpg",
+    photo: "https://almnatiq.net/wp-content/uploads/2015/12/logo_ar.png",
     description: "Create Activity for Orphans",
     place: "Riyadh",
     organization:  "5e6cd7d5dd5f893a0cf5ce81",
@@ -31,18 +31,17 @@ const Posts = [{
 //Takatuf Org
 { 
     title: "saudi volunteer organization",
-    photo: "https://media-exp1.licdn.com/dms/image/C4D0BAQEg3nBBWPsqtA/company-logo_200_200/0?e=2159024400&v=beta&t=G1EfzFDBiDU7K0ULyYCouKfyBDBQLqJ3tHKSg8x4q7g",
-    description: "Takatuf Volunteer Organization About Takatuf. Saudi Society of specialized non-profit organization seeking to spread a culture of volunteering and promote the concept of good",
+    photo: "https://pbs.twimg.com/profile_images/881809373995171844/h3lJRsq__400x400.jpg",
     place: "Riyadh",
     organization:  "5e6cd7d5dd5f893a0cf5ce83",
     users:["5e6cd7c91b213739fc7a5230"]},
 //Bunyan Org
 { 
     title: "Feeding",
-    photo: "https://www.almrsal.com/wp-content/uploads/2017/01/%D8%A8%D9%86%D9%8A%D8%A7%D9%86.jpg",
+    photo: "https://www.bunyan.org.sa/img/0ccbc289674bfc9252c7467b0bec756a.png",
     description: "Food collection and distribution to the needy",
     place: "Riyadh",
-    organization:  "5e6cd7d5dd5f893a0cf5ce85",
+    organization:  "5e6cd7d5dd5f893a0cf5ce84",
     users:["5e6cd7c91b213739fc7a5231"]},
     //Sanad
 { 
@@ -50,7 +49,7 @@ const Posts = [{
     photo: "https://www.sanad.org.sa/wp-content/themes/sanad/images/header-logo.png",
     description: "Photographer for photographing events",
     place: "Riyadh",
-    organization: "5e6cd7d5dd5f893a0cf5ce84",
+    organization: "5e6cd7d5dd5f893a0cf5ce85",
     users:["5e6cd7c91b213739fc7a5232"]},
         //King Abdulaziz Center for National Dialogue
 { 

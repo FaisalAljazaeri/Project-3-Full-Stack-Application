@@ -14,4 +14,3 @@ if (window.location.hostname === 'localhost') {
 }
 
 export default apiURL;
-
