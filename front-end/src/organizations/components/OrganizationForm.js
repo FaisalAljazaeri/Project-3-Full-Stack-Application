@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import './organization.css'
 
 export default class OrganizationForm extends Component {
     constructor(props) {
@@ -34,9 +35,10 @@ export default class OrganizationForm extends Component {
 
     render() {
         return (
-            <div>
+            <div className="Search">
                 <form onSubmit={this.submitHandler}>
                     <label>Organization Name: </label>
+                    <br/>
                     <input
                         value={this.state.name}
                         onChange={this.changeHandler}
