@@ -1,4 +1,5 @@
 import React from 'react';
+// import React Route
 import {
   BrowserRouter as Router,
   Switch,
@@ -9,6 +10,7 @@ import './App.css';
 import apiURL from './apiConfig';
 import Organization from './organizations/components/Organization';
 import User from './users/components/User';
+
 
 class App extends React.Component {
     //Creat constructor
@@ -28,6 +30,7 @@ class App extends React.Component {
  
   render() {
     return(
+      //Link Route by Uses Router
       <Router>
       <nav>
         <Link to="/">Home</Link>
@@ -38,7 +41,8 @@ class App extends React.Component {
       </nav>
 
       <div>
-        <Route
+      
+        <Route 
           path="/User"
           render={() => (
             <User
@@ -60,13 +64,6 @@ class App extends React.Component {
   );
 }
 }
-      
-      // <div className ="App">
-      //   <Organization posts={this.state.posts} setPosts={this.setPosts}/>
-      //   {/* <User posts={this.state.posts} setPosts={this.setPosts}/> */}
-
-      // </div>
-      //   );
-     
+    
       
 export default App;
