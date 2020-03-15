@@ -10,7 +10,7 @@ export default class Organization extends Component {
         // By default theres no organization logged in, so no posts will render
         this.state = {
             organizations: [],
-            organizationLogged: false
+            currentOrganizationPosts: []
         };
     }
 
@@ -25,7 +25,7 @@ export default class Organization extends Component {
             .catch(err => console.log(err));
     }
 
-    // Change the state to organizationLogged so posts can be rendered
+    // Change the state of oaranizations posts so they can be rendered
     organizationLogin = name => {
         // get organizations array from state
         const { organizations } = this.state;
@@ -35,27 +35,40 @@ export default class Organization extends Component {
             org => org.name.toLowerCase() === name.toLowerCase()
         );
 
-        // check if an organization is found by name, and change logged to true
-        // to render posts
+        // check if an organization is found by name
+        // update the current organization to render its posts
         if (selectedOrganization) {
+            // Get all posts by the organization with the passed name
+            const organizationPosts = this.props.posts.filter(
+                post =>
+                    post.organization.name.toLowerCase() ===
+                    selectedOrganization.name.toLowerCase()
+            );
+
             this.setState({
-                organizationLogged: true
+                currentOrganizationPosts: organizationPosts
+            });
+        } else {
+            // If no organization is found by name don't render any posts
+            this.setState({
+                currentOrganizationPosts: []
             });
         }
     };
 
-    render() {
-        // Posts will only be rendered if there's an org logged in
-        const posts = this.state.organizationLogged ? (
-            <Posts posts={this.props.posts} setPosts={this.props.setPosts} />
-        ) : (
-            ""
-        );
+    // Pass the posts array to parent (App) to keep it in the state
+    setPosts = posts => {
+        this.props.setPosts(posts);
+    };
 
+    render() {
         return (
             <div>
                 <OrganizationForm organizationLogin={this.organizationLogin} />
-                {posts}
+                <Posts
+                    posts={this.state.currentOrganizationPosts}
+                    setPosts={this.setPosts}
+                />
             </div>
         );
     }
