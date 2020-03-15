@@ -1,4 +1,5 @@
 import React from "react";
+import './post.css';
 //Creat class Post
 class Post extends React.Component {
     render() {
@@ -9,11 +10,13 @@ class Post extends React.Component {
         return (
             <div className="post">
                   {/* Title & Photo & Description & Place & Organization.name*/}
-                <p>{this.props.title}</p>
-                <p>{this.props.photo}</p>
-                <p>{this.props.description}</p>
-                <p>{this.props.place}</p>
+                <h2>{this.props.title}</h2>
+                <p className="icon">{this.props.photo}</p>
+                <p><strong>Description: </strong>{this.props.description}</p>
+                <p><strong>Place: </strong>{this.props.place}</p>
                 <p>{this.props.organization.name}</p>
+
+                <strong>Users:</strong>
                 {allUsers}
             </div>
         );
