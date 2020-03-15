@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Posts from "../../posts/posts";
+import Posts from "../../posts/component/posts";
 import OrganizationForm from "./OrganizationForm";
 import { getAllOrganizations } from "../api";
 
@@ -27,9 +27,21 @@ export default class Organization extends Component {
 
     // Change the state to organizationLogged so posts can be rendered
     organizationLogin = name => {
-        this.setState({
-            organizationLogged: true
-        });
+        // get organizations array from state
+        const { organizations } = this.state;
+
+        // Find the selected organization by the passed name
+        const selectedOrganization = organizations.find(
+            org => org.name.toLowerCase() === name.toLowerCase()
+        );
+
+        // check if an organization is found by name, and change logged to true
+        // to render posts
+        if (selectedOrganization) {
+            this.setState({
+                organizationLogged: true
+            });
+        }
     };
 
     render() {
