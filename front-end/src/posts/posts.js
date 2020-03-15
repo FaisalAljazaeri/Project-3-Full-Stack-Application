@@ -1,8 +1,12 @@
+//import React from react
 import React from "react";
+//import Post from ./post
 import Post from "./post";
+//import getAllPosts from ./api
 import { getAllPosts } from "./api";
-
+//Creat class Posts 
 class Posts extends React.Component {
+    //Creat componentDidMount Inside getAllPosts Show allPosts
     componentDidMount() {
         getAllPosts()
             .then(response => {
@@ -14,10 +18,11 @@ class Posts extends React.Component {
     }
     render() {
         let allposts = <h4>No setPosts!</h4>;
-
         if (this.props.posts.length > 0) {
+              // pass on every posts 
             allposts = this.props.posts.map((post, index) => {
                 return (
+                    
                     <Post
                         title={post.title}
                         photo={<img src={post.photo} alt={post.title}></img>}
