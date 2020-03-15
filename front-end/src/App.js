@@ -31,7 +31,9 @@ class App extends React.Component {
       <Router>
       <nav>
         <Link to="/">Home</Link>
+       
         <Link to="/User">User</Link>
+        
         <Link to="/Organization">Organization</Link>
       </nav>
 

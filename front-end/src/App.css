@@ -36,3 +36,27 @@
     transform: rotate(360deg);
   }
 }
+nav {
+  list-style-type: none;
+  margin: 0%;
+  padding: 0%;
+  overflow: hidden;
+  background-color: #FF9800;
+}
+
+
+nav a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 1.5% 4.5%;
+  text-decoration: none;
+  float: left;
+}
+
+
+nav a:hover:not(.active) {
+  background-color: #111;
+}
+
+
