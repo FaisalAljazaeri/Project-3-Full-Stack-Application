@@ -1,7 +1,8 @@
 import React from 'react';
 import './App.css';
 import apiURL from './apiConfig';
-import Organization from './organizations/components/Organization';
+// import Organization from './organizations/components/Organization';
+// import User from './users/components/User';
 
 class App extends React.Component {
     //Creat constructor
@@ -22,7 +23,9 @@ class App extends React.Component {
   render() {
     return(
       <div className ="App">
-        <Organization posts={this.state.posts} setPosts={this.setPosts}/>
+        {/* <Organization posts={this.state.posts} setPosts={this.setPosts}/> */}
+        {/* <User posts={this.state.posts} setPosts={this.setPosts}/> */}
+
       </div>
         );
       }
