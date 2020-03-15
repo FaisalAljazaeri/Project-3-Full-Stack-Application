@@ -13,7 +13,7 @@ class App extends React.Component {
     };
     console.log('API URL', apiURL);
   }
-  
+  //Creat 
   setPosts =(posts)=>{
     this.setState({ posts:posts });
   }
