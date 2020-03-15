@@ -2,7 +2,19 @@ import React from "react";
 import './post.css';
 //Creat class Post
 class Post extends React.Component {
+
+    // Call parent method to delete post by ID
+    deletePost = () => {
+        this.props.deletePost(this.props.id)
+    }
+
     render() {
+        // Delete button that appears if the organization that made the post
+        // is logged in 
+        const deleteButton = this.props.organizationLogged ? (
+            <button onClick={this.deletePost}>Delete Post</button>
+        ) : "";
+
         //Definition allUsers To show all users through it
         const allUsers = this.props.users.map((user, index) => (
             <p key={index}>{user.name}</p>
@@ -18,6 +30,8 @@ class Post extends React.Component {
 
                 <strong>Users:</strong>
                 {allUsers}
+                
+                {deleteButton}
             </div>
         );
     }

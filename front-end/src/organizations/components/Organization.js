@@ -10,7 +10,8 @@ export default class Organization extends Component {
         // By default theres no organization logged in, so no posts will render
         this.state = {
             organizations: [],
-            currentOrganizationPosts: []
+            currentOrganizationPosts: [],
+            organizationLogged: false
         };
     }
 
@@ -45,13 +46,18 @@ export default class Organization extends Component {
                     selectedOrganization.name.toLowerCase()
             );
 
+            // Since an organization is authenticated by name the state
+            // will hold its posts and logged state is true
             this.setState({
-                currentOrganizationPosts: organizationPosts
+                currentOrganizationPosts: organizationPosts,
+                organizationLogged: true
             });
         } else {
             // If no organization is found by name don't render any posts
+            // and set logged back to false since it's not authenticated
             this.setState({
-                currentOrganizationPosts: []
+                currentOrganizationPosts: [],
+                organizationLogged: false
             });
         }
     };
@@ -61,6 +67,13 @@ export default class Organization extends Component {
         this.props.setPosts(posts);
     };
 
+    // Set new organization's posts array
+    setOrganizationPosts = posts => {
+        this.setState({
+            currentOrganizationPosts: posts
+        });
+    }
+
     render() {
         return (
             <div>
@@ -68,6 +81,8 @@ export default class Organization extends Component {
                 <Posts
                     posts={this.state.currentOrganizationPosts}
                     setPosts={this.setPosts}
+                    organizationLogged={this.state.organizationLogged}
+                    setOrganizationPosts={this.setOrganizationPosts}
                 />
             </div>
         );

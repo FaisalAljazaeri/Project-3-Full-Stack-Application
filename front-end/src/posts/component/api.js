@@ -6,4 +6,10 @@ import axios from 'axios';
 const getAllPosts = () => {
   return axios.get(`${apiUrl}/posts`);
 };
-export { getAllPosts}
+
+// Delete Post By ID
+const deletePostById = (id) => {
+  return axios.delete(`${apiUrl}/posts/${id}`)
+}
+
+export { getAllPosts, deletePostById}
