@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-import Posts from './posts/posts';
 import apiURL from './apiConfig';
+import Organization from './organizations/components/Organization';
 
 class App extends React.Component {
     //Creat constructor
@@ -20,8 +20,7 @@ class App extends React.Component {
   render() {
     return(
       <div className ="App">
-      <Posts posts={this.state.posts}
-      setPosts ={this.setPosts} />
+        <Organization posts={this.state.posts} setPosts={this.setPosts}/>
       </div>
         );
       }

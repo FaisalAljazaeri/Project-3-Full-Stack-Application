@@ -27,7 +27,9 @@ export default class OrganizationForm extends Component {
             name: ""
         });
 
-        console.log(organizationName);
+        // Call the method of the organization login in the parent
+        // and pass it the name of the org to be logged in
+        this.props.organizationLogin(organizationName);
     };
 
     render() {
