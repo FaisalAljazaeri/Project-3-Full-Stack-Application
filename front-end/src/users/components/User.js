@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Posts from "./posts/component/posts";
+import Posts from "../../posts/component/posts";
 import UserForm from "./UserForm";
 
 export default class User extends Component {
@@ -9,20 +9,20 @@ export default class User extends Component {
       UserLog: false
     };
   }
-  HandlerUserLog = name => {
+  UserLog = name => {
     this.setState({
-      UserLog: true
+      UserLog: true,
     });
   };
   render() {
-    const posts = this.state.HandlerUserLog ? (
+    const posts = this.state.UserLog ? (
       <Posts posts={this.props.posts} setPosts={this.props.setPosts} />
     ) : (
       ""
     );
     return (
       <div>
-        <UserForm HandlerUserLog={this.HandlerUserLog} />
+        <UserForm UserLog={this.UserLog} />
         {posts}
       </div>
     );
