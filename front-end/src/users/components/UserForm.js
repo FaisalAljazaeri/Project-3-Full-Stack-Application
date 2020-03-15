@@ -3,26 +3,31 @@ import React, { Component } from "react";
 export default class UserForm extends Component {
   constructor(props) {
     super(props);
+    //create state for empty name
     this.state = {
       name: ""
     };
   }
+  //create method to take the input from users
   OnchangeHandler = e => {
     this.setState({
       name: e.target.value
     });
   };
+  //create method for submit button 
   OnsubmitHandler = e => {
     e.preventDefault();
+    // create varible to take the name
     const userName = this.state.name;
     this.setState({
       name: ""
     })
-    // console.log("test",name);
+    //props the method Userlog from User 
     this.props.UserLog(userName);
   };
   render() {
     return (
+        //create form (lable & input & button)
       <div>
         <form onSubmit={this.OnsubmitHandler}>
           <label>User Name :</label>
