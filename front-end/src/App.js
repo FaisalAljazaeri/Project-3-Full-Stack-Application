@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
-import Posts from './posts/component/posts';
 import apiURL from './apiConfig';
-//Creat class App 
+import Organization from './organizations/components/Organization';
+
 class App extends React.Component {
     //Creat constructor
     //Definition of an empty array
@@ -22,9 +22,7 @@ class App extends React.Component {
   render() {
     return(
       <div className ="App">
-     {/* //for pass state.posts and setPosts to Posts */}
-      <Posts posts={this.state.posts}
-      setPosts ={this.setPosts} />
+        <Organization posts={this.state.posts} setPosts={this.setPosts}/>
       </div>
         );
       }
