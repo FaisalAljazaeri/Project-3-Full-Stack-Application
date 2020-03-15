@@ -15,7 +15,8 @@ class Post extends React.Component {
                 <p><strong>Description: </strong>{this.props.description}</p>
                 <p><strong>Place: </strong>{this.props.place}</p>
                 <p>{this.props.organization.name}</p>
-                <p>Users: </p>
+
+                <strong>Users:</strong>
                 {allUsers}
             </div>
         );
