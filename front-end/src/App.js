@@ -5,10 +5,10 @@ import "./App.css";
 import apiURL from "./apiConfig";
 import Organization from "./organizations/components/Organization";
 import User from "./users/components/User";
-import { addNewUser } from "./users/api";
+import { createNewUser } from "./users/api";
 import UserForm from "./users/components/UserForm";
 import OrganizationForm from "./organizations/components/OrganizationForm";
-
+import { addNewOrganization } from "./organizations/api";
 class App extends React.Component {
   //Creat constructor
   //Definition of an empty array
@@ -26,9 +26,18 @@ class App extends React.Component {
   };
 
   addnewUser = name => {
-    addNewUser(name)
+    createNewUser(name)
       .then(res => {
         console.log(res.data.user);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+  addnewOrg = name => {
+    addNewOrganization(name)
+      .then(res => {
+        console.log(res.data.organization);
       })
       .catch(error => {
         console.log(error);
