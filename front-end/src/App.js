@@ -24,7 +24,7 @@ class App extends React.Component {
   setPosts = posts => {
     this.setState({ posts: posts });
   };
-
+//Creat Fountain  to add new User in database
   addnewUser = name => {
     createNewUser(name)
       .then(res => {
@@ -34,6 +34,7 @@ class App extends React.Component {
         console.log(error);
       });
   };
+  //Creat Fountain  to add new Organization in database
   addnewOrg = name => {
     addNewOrganization(name)
       .then(res => {
@@ -43,8 +44,6 @@ class App extends React.Component {
         console.log(error);
       });
   };
-
-
   render() {
     return (
       <div>
