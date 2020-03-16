@@ -5,8 +5,13 @@ import axios from "axios";
 const getAllOrganizations = () => {
     return axios.get(`${apiUrl}/organizations`);
 };
-
+//Add New Organization
 const addNewOrganization =(name)=>{
     return axios.post(`${apiUrl}/organizations`,{organization:{name}})
 }
-export { getAllOrganizations ,addNewOrganization};
+// Delete Organization by ID
+
+const deleteOrganization = (id) => {
+    return axios.delete(`${apiUrl}/organizations/${id}`);
+  }
+export { getAllOrganizations ,addNewOrganization,deleteOrganization};

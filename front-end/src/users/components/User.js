@@ -49,7 +49,7 @@ export default class User extends Component {
   };
   render() {
     //Create varible to check the method UserLog if true display else nothing
-    const posts = this.state.UserLog ? (
+    const posts = this.state.UserLog ? ( 
       <Posts posts={this.props.posts} setPosts={this.props.setPosts} />
     ) : (
       ""
