@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Posts from "../../posts/component/posts";
 import OrganizationForm from "./OrganizationForm";
 import { getAllOrganizations } from "../api";
+import PostForm from "../../posts/component/PostForm";
 
 export default class Organization extends Component {
     constructor(props) {
@@ -11,7 +12,8 @@ export default class Organization extends Component {
         this.state = {
             organizations: [],
             currentOrganizationPosts: [],
-            organizationLogged: false
+            organizationLogged: false,
+            organizationId: ""
         };
     }
 
@@ -50,7 +52,8 @@ export default class Organization extends Component {
             // will hold its posts and logged state is true
             this.setState({
                 currentOrganizationPosts: organizationPosts,
-                organizationLogged: true
+                organizationLogged: true,
+                organizationId: selectedOrganization._id
             });
         } else {
             // If no organization is found by name don't render any posts
@@ -72,12 +75,19 @@ export default class Organization extends Component {
         this.setState({
             currentOrganizationPosts: posts
         });
-    }
+    };
 
     render() {
         return (
             <div>
                 <OrganizationForm organizationLogin={this.organizationLogin} />
+
+                {/* Render add post form only when an organization is logged in */}
+                {this.state.organizationLogged ? (
+                    <PostForm organizationId={this.state.organizationId} />
+                ) : (
+                    ""
+                )}
                 <Posts
                     posts={this.state.currentOrganizationPosts}
                     setPosts={this.setPosts}

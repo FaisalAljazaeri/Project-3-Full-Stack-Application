@@ -26,8 +26,11 @@ export default class PostForm extends Component {
         // Get the input values from the state
         const { title, description, photo, place } = this.state;
 
+        // Get organization Id from props
+        const organization = this.props.organizationId;
+
         // Create new Post object with the data from inputs
-        const post = { title, description, photo, place };
+        const post = { title, description, photo, place, organization };
 
         // Return all the state values to their defaults
         this.setState({
