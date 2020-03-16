@@ -10,15 +10,18 @@ import './App.css';
 import apiURL from './apiConfig';
 import Organization from './organizations/components/Organization';
 import User from './users/components/User';
-
-
+import { addNewUser } from './users/api';
+import UserForm from './users/components/UserForm';
+import  OrganizationForm from './organizations/components/OrganizationForm';
+import {addNewOrganization} from './organizations/api'
 class App extends React.Component {
     //Creat constructor
     //Definition of an empty array
   constructor(props){
     super(props);
     this.state={
-     posts:[]
+     posts:[],
+     users:[]
     };
 
     console.log('API URL', apiURL);
@@ -27,10 +30,12 @@ class App extends React.Component {
   setPosts =(posts)=>{
     this.setState({ posts:posts });
   }
- 
+   
+  
   render() {
     return(
-      //Link Route by Uses Router
+      <div>
+      {/* //Link Route by Uses Router */}
       <Router>
       <nav>
         <Link to="/">Home</Link>
@@ -59,8 +64,12 @@ class App extends React.Component {
             />
           )}
         />
+        
       </div>
     </Router>
+    <UserForm  />
+    <OrganizationForm/>
+    </div>
   );
 }
 }
