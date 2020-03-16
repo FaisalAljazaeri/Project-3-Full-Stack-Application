@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { createPost } from "./api";
 
 export default class PostForm extends Component {
     constructor(props) {
@@ -31,6 +32,14 @@ export default class PostForm extends Component {
 
         // Create new Post object with the data from inputs
         const post = { title, description, photo, place, organization };
+
+        // Make POST request to the API with a new post object
+        createPost({ post })
+            .then(res => {
+                // Add new Post to the Organization state
+                this.props.addPost(res.data.post);
+            })
+            .catch(err => console.log(err));
 
         // Return all the state values to their defaults
         this.setState({

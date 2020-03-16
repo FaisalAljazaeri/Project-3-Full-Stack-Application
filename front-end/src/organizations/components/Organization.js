@@ -77,6 +77,16 @@ export default class Organization extends Component {
         });
     };
 
+    // Add new post to the organization posts state
+    addPost = post => {
+        this.setState({
+            currentOrganizationPosts: [
+                ...this.state.currentOrganizationPosts,
+                post
+            ]
+        });
+    };
+
     render() {
         return (
             <div>
@@ -84,7 +94,10 @@ export default class Organization extends Component {
 
                 {/* Render add post form only when an organization is logged in */}
                 {this.state.organizationLogged ? (
-                    <PostForm organizationId={this.state.organizationId} />
+                    <PostForm
+                        organizationId={this.state.organizationId}
+                        addPost={this.addPost}
+                    />
                 ) : (
                     ""
                 )}

@@ -12,4 +12,9 @@ const deletePostById = (id) => {
   return axios.delete(`${apiUrl}/posts/${id}`)
 }
 
-export { getAllPosts, deletePostById}
+// Create a new Post
+const createPost = (post) => {
+  return axios.post(`${apiUrl}/posts`, post);
+}
+
+export { getAllPosts, deletePostById, createPost }
