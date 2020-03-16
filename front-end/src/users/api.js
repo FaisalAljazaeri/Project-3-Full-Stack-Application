@@ -5,5 +5,7 @@ import axios from "axios";
 const getAllUsers = () => {
     return axios.get(`${apiUrl}/users`);
 };
-
-export { getAllUsers };
+const createNewUser =(name)=>{
+    return axios.post(`${apiUrl}/users`,{user:{name}})
+}
+export { getAllUsers ,createNewUser };

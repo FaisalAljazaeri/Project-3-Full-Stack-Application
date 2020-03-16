@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 
+
 export default class UserForm extends Component {
   constructor(props) {
     super(props);
@@ -23,7 +24,10 @@ export default class UserForm extends Component {
       name: ""
     })
     //props the method Userlog from User 
-    this.props.UserLog(userName);
+    if ( this.props.UserLog){
+    this.props.UserLog(userName);}
+    else if (this.props.addnewUser){
+    this.props.addnewUser(userName);}
   };
   render() {
     return (
