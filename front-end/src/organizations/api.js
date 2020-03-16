@@ -5,7 +5,7 @@ import axios from "axios";
 const getAllOrganizations = () => {
     return axios.get(`${apiUrl}/organizations`);
 };
-const addNewOrganization =()=>{
-    return axios.post(`${apiUrl}/organizations`)
+const addNewOrganization =(name)=>{
+    return axios.post(`${apiUrl}/organizations`,name)
 }
 export { getAllOrganizations ,addNewOrganization};
