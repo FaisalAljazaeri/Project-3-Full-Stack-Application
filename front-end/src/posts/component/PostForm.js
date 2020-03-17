@@ -2,98 +2,109 @@ import React, { Component } from "react";
 import { createPost } from "./api";
 
 export default class PostForm extends Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            title: "",
-            photo: "",
-            description: "",
-            place: ""
-        };
-    }
-
-    // Set state with new value when an input field is changed
-    chnageHandler = e => {
-        this.setState({
-            [e.target.name]: e.target.value
-        });
+    this.state = {
+      title: "",
+      photo: "",
+      description: "",
+      place: ""
     };
-
-    submitHanler = e => {
-        // Prevent page reload when the form is submitted
-        e.preventDefault();
-
-        // Get the input values from the state
-        const { title, description, photo, place } = this.state;
-
-        // Get organization Id from props
-        const organization = this.props.organizationId;
-
-        // Create new Post object with the data from inputs
-        const post = { title, description, photo, place, organization };
-
-        // Make POST request to the API with a new post object
-        createPost({ post })
-            .then(res => {
-                // Add new Post to the Organization state
-                this.props.addPost(res.data.post);
-            })
-            .catch(err => console.log(err));
-
-        // Return all the state values to their defaults
-        this.setState({
-            title: "",
-            photo: "",
-            description: "",
-            place: ""
-        });
-    };
-
-    render() {
-        return (
-            <div>
-                <form onSubmit={this.submitHanler}>
-                    <div>
-                        <label>Title: </label>
-                        <input
-                            name="title"
-                            value={this.state.title}
-                            onChange={this.chnageHandler}
-                            placeholder="Post Title"
-                        />
-                    </div>
-                    <div>
-                        <label>Description: </label>
-                        <input
-                            name="description"
-                            value={this.state.description}
-                            onChange={this.chnageHandler}
-                            placeholder="Post Description"
-                        />
-                    </div>
-                    <div>
-                        <label>Place: </label>
-                        <input
-                            name="place"
-                            value={this.state.place}
-                            onChange={this.chnageHandler}
-                            placeholder="Post Place"
-                        />
-                    </div>
-                    <div>
-                        <label>Photo: </label>
-                        <input
-                            name="photo"
-                            value={this.state.photo}
-                            onChange={this.chnageHandler}
-                            placeholder="Post Photo"
-                        />
-                    </div>
-
-                    <button type="submit">Add Post</button>
-                </form>
-            </div>
-        );
+  }
+  componentDidMount() {
+    // pass method in condition
+    if (this.props.editPost) {
+      //props data from post
+      this.setState({
+        title: this.props.title,
+        photo: this.props.photo,
+        description: this.props.description,
+        place: this.props.place
+      });
     }
+  }
+  // Set state with new value when an input field is changed
+  chnageHandler = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  };
+
+  submitHanler = e => {
+    // Prevent page reload when the form is submitted
+    e.preventDefault();
+
+    // Get the input values from the state
+    const { title, description, photo, place } = this.state;
+
+    // Get organization Id from props
+    const organization = this.props.organizationId;
+
+    // Create new Post object with the data from inputs
+    const post = { title, description, photo, place, organization };
+
+    // Make POST request to the API with a new post object
+    createPost({ post })
+      .then(res => {
+        // Add new Post to the Organization state
+        this.props.addPost(res.data.post);
+      })
+      .catch(err => console.log(err));
+
+    // Return all the state values to their defaults
+    this.setState({
+      title: "",
+      photo: "",
+      description: "",
+      place: ""
+    });
+  };
+
+  render() {
+    return (
+      <div>
+        <form onSubmit={this.submitHanler}>
+          <div>
+            <label>Title: </label>
+            <input
+              name="title"
+              value={this.state.title}
+              onChange={this.chnageHandler}
+              placeholder="Post Title"
+            />
+          </div>
+          <div>
+            <label>Description: </label>
+            <input
+              name="description"
+              value={this.state.description}
+              onChange={this.chnageHandler}
+              placeholder="Post Description"
+            />
+          </div>
+          <div>
+            <label>Place: </label>
+            <input
+              name="place"
+              value={this.state.place}
+              onChange={this.chnageHandler}
+              placeholder="Post Place"
+            />
+          </div>
+          <div>
+            <label>Photo: </label>
+            <input
+              name="photo"
+              value={this.state.photo}
+              onChange={this.chnageHandler}
+              placeholder="Post Photo"
+            />
+          </div>
+
+          <button type="submit">Add Post</button>
+        </form>
+      </div>
+    );
+  }
 }

@@ -21,6 +21,10 @@ class Post extends React.Component {
       editFormActive: !this.state.editFormActive
     });
   };
+  //edit method
+  editPost = post => {
+    console.log("editPost test");
+  };
 
   render() {
     // Delete button that appears if the organization that made the post
@@ -43,7 +47,9 @@ class Post extends React.Component {
       <div className="post">
         {/* Title & Photo & Description & Place & Organization.name*/}
         <h2>{this.props.title}</h2>
-        <p className="icon">{this.props.photo}</p>
+        <p className="icon">
+          <img src={this.props.photo} alt={this.props.title} />
+        </p>
         <p>
           <strong>Description: </strong>
           {this.props.description}
@@ -58,7 +64,19 @@ class Post extends React.Component {
         {allUsers}
 
         {buttons}
-        {this.state.editFormActive ? <PostForm /> : ""}
+        {this.state.editFormActive ? (
+          //render the data as props to PostForm
+          <PostForm
+            title={this.props.title}
+            photo={this.props.photo}
+            description={this.props.description}
+            place={this.props.place}
+            id={this.props.id}
+            editPost={this.editPost}
+          />
+        ) : (
+          ""
+        )}
       </div>
     );
   }
