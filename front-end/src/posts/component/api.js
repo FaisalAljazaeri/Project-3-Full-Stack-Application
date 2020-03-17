@@ -1,6 +1,5 @@
-
-import apiUrl from '../../apiConfig';
-import axios from 'axios';
+import apiUrl from "../../apiConfig";
+import axios from "axios";
 
 // Get All Posts
 const getAllPosts = () => {
@@ -8,13 +7,18 @@ const getAllPosts = () => {
 };
 
 // Delete Post By ID
-const deletePostById = (id) => {
-  return axios.delete(`${apiUrl}/posts/${id}`)
-}
+const deletePostById = id => {
+  return axios.delete(`${apiUrl}/posts/${id}`);
+};
 
 // Create a new Post
-const createPost = (post) => {
+const createPost = post => {
   return axios.post(`${apiUrl}/posts`, post);
-}
+};
 
-export { getAllPosts, deletePostById, createPost }
+// Edit Post By Id and export it
+const editPostById = (id, updatedPost) => {
+  return axios.patch(`${apiUrl}/posts/${id}`, { posts: updatedPost });
+};
+
+export { getAllPosts, deletePostById, createPost, editPostById };
