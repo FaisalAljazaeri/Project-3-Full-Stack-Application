@@ -3,10 +3,10 @@ const express = require("express");
 
 //Require Mongoose Model for Organization
 const Organization = require('../model/Organization')
-
+//Require Mongoose Model for Post
+const Post=require('../model/Post')
 //Instantiate a Router (min app that only handles routes)
 const router = express.Router();
-
 
 
 /**
@@ -85,6 +85,7 @@ router.delete("/api/organizations/:id", (req, res) => {
             if (organization) {
                // pass the result of Mongoose's  .delete method to next.then statment
                 return organization.delete();
+               
             } else {
                 // If no user was found by the passed ID, send an error message as response
                 res.status(404).json({
@@ -95,12 +96,20 @@ router.delete("/api/organizations/:id", (req, res) => {
                 });
             }
         })
+        // Delete Post organization by organization ID
         .then(() => {
-            // If the update succeeded, return 204 and no JSON response
-            res.status(204).end();
+          return Post.deleteMany({organization:req.params.id})
+           
+
+        })
+        .then(()=>{
+           // If the update succeeded, return 204 and no JSON response
+
+           res.status(204).end();
         })
         .catch(error => res.status(500).json({ error }));
 });
+
 
 
 /**

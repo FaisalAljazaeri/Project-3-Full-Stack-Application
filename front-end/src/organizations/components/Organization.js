@@ -3,6 +3,7 @@ import Posts from "../../posts/component/posts";
 import OrganizationForm from "./OrganizationForm";
 import { getAllOrganizations } from "../api";
 import PostForm from "../../posts/component/PostForm";
+import {deleteOrganization} from '../api'
 
 export default class Organization extends Component {
     constructor(props) {
@@ -14,13 +15,15 @@ export default class Organization extends Component {
             currentOrganizationPosts: [],
             organizationLogged: false,
             organizationId: ""
+           
         };
     }
-
+  
     componentDidMount() {
         // Get all Organizations from API and load them in the state
         getAllOrganizations()
             .then(response => {
+                
                 this.setState({
                     organizations: response.data.organizations
                 });
@@ -54,6 +57,8 @@ export default class Organization extends Component {
                 currentOrganizationPosts: organizationPosts,
                 organizationLogged: true,
                 organizationId: selectedOrganization._id
+              
+            
             });
         } else {
             // If no organization is found by name don't render any posts
@@ -86,19 +91,39 @@ export default class Organization extends Component {
             ]
         });
     };
-
+    //Creat Fountain Dlete Organization By Id
+    deleteOrg=()=>{
+       
+        deleteOrganization(this.state.organizationId)
+        .then(response=>{
+            this.setState({
+                organizationLogged: false,
+                currentOrganizationPosts:[],
+                organizationId:""
+ 
+            })
+        })
+    
+    .catch(error => {
+        console.log(error);})
+        
+    }
     render() {
         return (
             <div>
                 <OrganizationForm organizationLogin={this.organizationLogin} />
-
+               
                 {/* Render add post form only when an organization is logged in */}
-                {this.state.organizationLogged ? (
+                {this.state.organizationLogged ? (<>
+                <button onClick={this.deleteOrg}>Delete organization</button>
                     <PostForm
                         organizationId={this.state.organizationId}
                         addPost={this.addPost}
                     />
+                    </>
                 ) : (
+                 
+                   
                     ""
                 )}
                 <Posts
