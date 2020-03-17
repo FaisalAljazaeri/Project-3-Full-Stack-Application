@@ -18,21 +18,7 @@ export default class Organization extends Component {
            
         };
     }
-    deleteOrg=(id)=>{
-        console.log('The  ID to Delete', id);
-        deleteOrganization(id)
-        .then(response=>{
-            console.log(`T ID ${id} has been deleted.`);
-            this.setState({
-                organizationLogged: false
-
-            })
-         
-        })
-    
-    .catch(error => {
-        console.log(error);})
-    }
+  
     componentDidMount() {
         // Get all Organizations from API and load them in the state
         getAllOrganizations()
@@ -105,8 +91,23 @@ export default class Organization extends Component {
             ]
         });
     };
+    //Creat Fountain Dlete Organization By Id
+    deleteOrg=()=>{
+       
+        deleteOrganization(this.state.organizationId)
+        .then(response=>{
+            this.setState({
+                organizationLogged: false,
+                currentOrganizationPosts:[],
+                organizationId:""
+ 
+            })
+        })
     
-
+    .catch(error => {
+        console.log(error);})
+        
+    }
     render() {
         return (
             <div>
