@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import Posts from "../../posts/component/posts";
 import UserForm from "./UserForm";
-import { getAllUsers } from "../api";
+import { getAllUsers, deleteUserById } from "../api";
 
 export default class User extends Component {
     constructor(props) {
@@ -10,6 +10,7 @@ export default class User extends Component {
         //create state for empty input by false and create an arry for users
         this.state = {
             UserLog: false,
+            userLogged: "",
             users: [],
             registeredPosts: [],
             unregisteredPosts: [],
@@ -67,7 +68,8 @@ export default class User extends Component {
             this.setState({
                 UserLog: true,
                 registeredPosts,
-                unregisteredPosts
+                unregisteredPosts,
+                userLogged: selectedUsersName._id
             });
         } else {
             //if the name not found return nothing
@@ -76,10 +78,30 @@ export default class User extends Component {
             });
         }
     };
+
+    // Create Delete Method for user
+    deleteUser = () => {
+        console.log('ID to Delete');
+        deleteUserById(this.state.userLogged)
+            .then(response => {
+                console.log('Delete it..');
+                this.setState({
+                    UserLog: false,
+                })
+                console.log('Done Delete')
+            })
+            .catch(error => {
+                console.log('ERROR: ', error)
+            })
+        }
+
+
     render() {
         const SelectedPosts = this.state.showRegisteredPosts ? (
             <>
                 <h1>Registred Posts: </h1>
+                {/* Create Button For Delete User */}
+                <button onClick={this.deleteUser}>Delete</button>
                 <Posts
                     posts={this.state.registeredPosts}
                     setPosts={this.props.setPosts}
