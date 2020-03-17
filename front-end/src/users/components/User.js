@@ -79,16 +79,28 @@ export default class User extends Component {
         }
     };
 
-    // Create Delete Method for user
+    
+    // Create Delete Function for user
     deleteUser = () => {
-        console.log('ID to Delete');
+
         deleteUserById(this.state.userLogged)
             .then(response => {
-                console.log('Delete it..');
+                // Create Varible for control to Array for User 
+                // & Create ForLoop to check all index 
+                // if user ID = userlog & delete one index
+                const posts = [...this.state.registeredPosts]
+                posts.forEach(post => {
+                    const index = post.users.findIndex(userId => 
+                    this.state.userLogged === userId
+                    )
+                    post.users.splice(index, 1)
+                })
+
                 this.setState({
                     UserLog: false,
+                    userLogged: "",
+                    registeredPosts: posts
                 })
-                console.log('Done Delete')
             })
             .catch(error => {
                 console.log('ERROR: ', error)
@@ -99,9 +111,10 @@ export default class User extends Component {
     render() {
         const SelectedPosts = this.state.showRegisteredPosts ? (
             <>
-                <h1>Registred Posts: </h1>
                 {/* Create Button For Delete User */}
-                <button onClick={this.deleteUser}>Delete</button>
+                <button onClick={this.deleteUser}>Delete User</button>
+
+                {/* Registred Posts: */}
                 <Posts
                     posts={this.state.registeredPosts}
                     setPosts={this.props.setPosts}
@@ -109,7 +122,7 @@ export default class User extends Component {
             </>
         ) : (
             <>
-                <h1>Unregistered Posts: </h1>
+                {/* Unregistered Posts: */}
                 <Posts
                     posts={this.state.unregisteredPosts}
                     setPosts={this.props.setPosts}
