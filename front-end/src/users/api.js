@@ -12,7 +12,7 @@ const createNewUser =(name)=>{
 
 // Delete user By ID
 const deleteUserById =(id)=>{
-    return axios.delete(`${apiUrl}/users/${id}`)
+     return axios.delete(`${apiUrl}/users/${id}`)
 };
   
 export { getAllUsers ,createNewUser, deleteUserById };
