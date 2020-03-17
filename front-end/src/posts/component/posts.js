@@ -16,6 +16,29 @@ class Posts extends React.Component {
         console.log("API ERROR:", error);
       });
   }
+  //edit method by id
+  editPost = (id, post) => {
+    //find the id in posts array and compare it
+    const indexOfPostToUpdate = this.props.posts.findIndex(
+      post => post._id === id
+    );
+    // assign indexOfPostToUpdate to oldPost
+    const oldPost = this.props.posts[indexOfPostToUpdate];
+
+    const { title, description, photo, place } = post;
+    //make a copy to newAarry
+    const newArray = [...this.props.posts];
+    // use splice to set the change
+    newArray.splice(indexOfPostToUpdate, 1, {
+      ...oldPost,
+      title,
+      place,
+      photo,
+      description
+    });
+    //props the method and take parmeter newArray to use
+    this.props.setOrganizationPosts(newArray);
+  };
 
   // Delete post by ID
   deletePost = id => {
@@ -47,6 +70,7 @@ class Posts extends React.Component {
             key={index}
             organizationLogged={this.props.organizationLogged}
             deletePost={this.deletePost}
+            editPost={this.editPost}
           />
         );
       });

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { createPost } from "./api";
+import { createPost, editPostById } from "./api";
 
 export default class PostForm extends Component {
   constructor(props) {
@@ -38,20 +38,32 @@ export default class PostForm extends Component {
     // Get the input values from the state
     const { title, description, photo, place } = this.state;
 
-    // Get organization Id from props
-    const organization = this.props.organizationId;
-
-    // Create new Post object with the data from inputs
-    const post = { title, description, photo, place, organization };
-
     // Make POST request to the API with a new post object
-    createPost({ post })
-      .then(res => {
-        // Add new Post to the Organization state
-        this.props.addPost(res.data.post);
-      })
-      .catch(err => console.log(err));
+    //create if statment to switch btween add and edit
+    // if for Add
+    if (this.props.addPost) {
+      // Get organization Id from props
+      const organization = this.props.organizationId;
 
+      // Create new Post object with the data from inputs
+      const newPost = { title, description, photo, place, organization };
+      createPost({ post: newPost })
+        .then(res => {
+          // Add new Post to the Organization state
+          this.props.addPost(res.data.post);
+        })
+        .catch(err => console.log(err));
+    }
+    //else if for edit
+    else if (this.props.editPost) {
+      // Create updatedPost that take value from input
+      const updatedPost = { title, description, photo, place };
+      editPostById(this.props.id, updatedPost)
+        .then(res => {
+          this.props.editPost(this.props.id, updatedPost);
+        })
+        .catch(err => console.log(err));
+    }
     // Return all the state values to their defaults
     this.setState({
       title: "",

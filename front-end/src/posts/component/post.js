@@ -22,8 +22,8 @@ class Post extends React.Component {
     });
   };
   //edit method
-  editPost = post => {
-    console.log("editPost test");
+  editPost = (id, post) => {
+    this.props.editPost(id, post);
   };
 
   render() {
