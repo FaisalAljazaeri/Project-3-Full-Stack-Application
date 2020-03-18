@@ -121,6 +121,9 @@ router.post("/api/users/login", (req, res) => {
             .status(500)
             .json({ msg: "Please enter both name and password" });
     }
+    // Var to hold user id if found
+    let userId = 0;
+
     // Authenricate user
     User.findOne({ name: user.name })
         .then(userDoc => {
@@ -128,6 +131,9 @@ router.post("/api/users/login", (req, res) => {
             if (!userDoc) {
                 return res.status(500).json({ msg: "Name doesn't exist" });
             }
+
+            // set id
+            userId = userDoc._id;
             // Check if the given password matches the one in the database
             return bcrypt.compare(user.password, userDoc.password);
         })
@@ -142,6 +148,7 @@ router.post("/api/users/login", (req, res) => {
                 // Save the issued token in cookies
                 return res.cookie("userToken", token, { httpOnly: true })
                     .status(200)
+                    .json({user:{name: user.name, id: userId}})
                     .end();
             }
             // Case of wrong password
