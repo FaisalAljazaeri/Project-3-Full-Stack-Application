@@ -1,5 +1,5 @@
 import React from "react";
-import "../post.css";
+import "./post.css";
 import PostForm from "./PostForm";
 //Creat class Post
 class Post extends React.Component {

@@ -4,7 +4,7 @@ import OrganizationForm from "./OrganizationForm";
 import { getAllOrganizations } from "../api";
 import PostForm from "../../posts/component/PostForm";
 import {deleteOrganization} from '../api'
-import '../organization.css';
+import './organization.css';
 export default class Organization extends Component {
     constructor(props) {
         super(props);
