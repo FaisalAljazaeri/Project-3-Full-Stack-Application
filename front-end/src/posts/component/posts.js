@@ -49,8 +49,7 @@ class Posts extends React.Component {
       })
       .catch(err => console.log(err));
   };
-<<<<<<< HEAD
-=======
+
 
   // Get the post by it's id from the posts list passed in props
   getPostById = postId => {
@@ -92,7 +91,7 @@ class Posts extends React.Component {
       .catch(err => console.log(err));
   };
 
->>>>>>> af5bbdc35adada3d602b86d9f3890ecbe1f073b0
+  
   render() {
     let allposts = <h4></h4>;
     if (this.props.posts.length > 0) {

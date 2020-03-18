@@ -24,8 +24,6 @@ class Post extends React.Component {
   editPost = (id, post) => {
     this.props.editPost(id, post);
   };
-<<<<<<< HEAD
-=======
 
   // Method to resgiter a User to a Post by ID
   joinPost = () => {
@@ -37,7 +35,6 @@ class Post extends React.Component {
     this.props.leavePost(this.props.id);
   };
 
->>>>>>> af5bbdc35adada3d602b86d9f3890ecbe1f073b0
   render() {
     // Delete button that appears if the organization that made the post
     // is logged in
@@ -50,8 +47,7 @@ class Post extends React.Component {
     ) : (
       ""
     );
-<<<<<<< HEAD
-=======
+
 
     // Button to display for a user and if they click they can join the post
     const joinPostButton = this.props.joinPost ? (
@@ -67,7 +63,7 @@ class Post extends React.Component {
       ""
     );
 
->>>>>>> af5bbdc35adada3d602b86d9f3890ecbe1f073b0
+
     //Definition allUsers To show all users through it
     const allUsers = this.props.users.map((user, index) => (
       <p key={index}>{user.name}</p>
