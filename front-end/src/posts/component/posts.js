@@ -54,9 +54,9 @@ class Posts extends React.Component {
   };
 
   // Get the post by it's id from the posts list passed in props
-  getPostById = (postId) => {
+  getPostById = postId => {
     return this.props.posts.find(post => post._id === postId);
-  }
+  };
 
   // Method to register a User to Post by ID
   joinPost = postId => {
@@ -67,13 +67,31 @@ class Posts extends React.Component {
     const updatedUsersList = [...post.users, this.props.userId];
 
     // Make an API request to update list of posts's users
-    editPostById(postId, {users: updatedUsersList})
+    editPostById(postId, { users: updatedUsersList })
       .then(res => {
         // Pass the updated Post ID to parent to set its state
         this.props.joinPost(postId);
       })
       .catch(err => console.log(err));
-  }
+  };
+  // Method to unregister a User to Post by ID
+  leavePost = postId => {
+    // Get the current post that the user is registering for
+    const post = this.getPostById(postId);
+
+    // remove the new registered user from the post's list of users
+    const updatedUsersList = post.users.filter(
+      userId => userId === this.props.userId
+    );
+
+    // Make an API request to update list of posts's users
+    editPostById(postId, { users: updatedUsersList })
+      .then(res => {
+        // Pass the updated Post ID to parent to set its state
+        this.props.leavePost(postId);
+      })
+      .catch(err => console.log(err));
+  };
 
   render() {
     let allposts = <h4>No setPosts!</h4>;
@@ -94,6 +112,7 @@ class Posts extends React.Component {
             deletePost={this.deletePost}
             editPost={this.editPost}
             joinPost={this.props.joinPost ? this.joinPost : null}
+            leavePost={this.props.leavePost ? this.leavePost : null}
           />
         );
       });
