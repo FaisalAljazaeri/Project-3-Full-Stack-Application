@@ -2,6 +2,8 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const dotenv = require("dotenv");
+const cookieParser = require("cookie-parser");
 
 // Require Route Files
 const userRouter = require('./routes/user');
@@ -26,7 +28,13 @@ const app = express();
 const port = process.env.PORT || 5000;
 const reactPort = 3000;
 
+
 /*** Middleware ***/
+
+// Use envieronemnt variables from .env file
+dotenv.config();
+// Middleware
+app.use(cookieParser());
 
 // Add `bodyParser` middleware which will parse JSON requests
 // into JS objects before they reach the route files.
