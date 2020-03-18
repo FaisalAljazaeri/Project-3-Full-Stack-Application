@@ -1,7 +1,7 @@
-* {
+/* * {
 	transform-style: preserve-3d;
 	font-family: helvetica;
-}
+} */
 html, 
 body {
 	width: 100%;
@@ -9,14 +9,15 @@ body {
 	margin: 0;
 	padding: 0;
 	background: rgb(238, 234, 234);
-	overflow: auto;
+    overflow: auto;
+    box-sizing: border-box;
 }
 body {
     -webkit-perspective: 1000px;
     font-family: Impact, Charcoal, sans-serif;
 }
 .post{
-    width: 400px;
+    width: 450px;
 	height: 600px;
 	background: #fff;
 	margin: 7% auto 0 auto;
@@ -26,11 +27,22 @@ body {
     border-radius: 20px;
     font-family: Sans-Serif; 
     line-height: 150%; 
+    text-align: center;
 }
 h2{
-    color: #FF9800;
+    color: rgba(230, 199, 65, 0.658);
     text-align: center;
     text-transform: uppercase;
+}
+.label-org{
+    font-family: serif;
+    font-size: 50px;
+    color: rgba(146, 145, 143, 0.473);
+}
+.label-user{
+    font-family: serif;
+    font-size: 50px;
+    color: rgba(146, 145, 143, 0.473);
 }
 .icon{
     margin: 45px;

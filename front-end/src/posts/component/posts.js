@@ -24,7 +24,6 @@ class Posts extends React.Component {
     );
     // assign indexOfPostToUpdate to oldPost
     const oldPost = this.props.posts[indexOfPostToUpdate];
-
     const { title, description, photo, place } = post;
     //make a copy to newAarry
     const newArray = [...this.props.posts];
@@ -39,22 +38,19 @@ class Posts extends React.Component {
     //props the method and take parmeter newArray to use
     this.props.setOrganizationPosts(newArray);
   };
-
   // Delete post by ID
   deletePost = id => {
     deletePostById(id)
       .then(res => {
         // Filter posts to execlude the post with the passed id
         const newPosts = this.props.posts.filter(post => post._id !== id);
-
         // Set the value of the new organization's posts array
         this.props.setOrganizationPosts(newPosts);
       })
       .catch(err => console.log(err));
   };
-
   render() {
-    let allposts = <h4>No setPosts!</h4>;
+    let allposts = <h4></h4>;
     if (this.props.posts.length > 0) {
       // pass on every posts
       allposts = this.props.posts.map((post, index) => {
@@ -77,11 +73,9 @@ class Posts extends React.Component {
     }
     return (
       <>
-        <h3>All post</h3>
         {allposts}
       </>
     );
   }
 }
-
 export default Posts;

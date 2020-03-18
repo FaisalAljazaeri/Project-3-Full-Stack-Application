@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import { createPost, editPostById } from "./api";
-
 export default class PostForm extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       title: "",
       photo: "",
@@ -30,21 +28,17 @@ export default class PostForm extends Component {
       [e.target.name]: e.target.value
     });
   };
-
   submitHanler = e => {
     // Prevent page reload when the form is submitted
     e.preventDefault();
-
     // Get the input values from the state
     const { title, description, photo, place } = this.state;
-
     // Make POST request to the API with a new post object
     //create if statment to switch btween add and edit
     // if for Add
     if (this.props.addPost) {
       // Get organization Id from props
       const organization = this.props.organizationId;
-
       // Create new Post object with the data from inputs
       const newPost = { title, description, photo, place, organization };
       createPost({ post: newPost })
@@ -72,27 +66,26 @@ export default class PostForm extends Component {
       place: ""
     });
   };
-
   render() {
     return (
       <div>
-        <form onSubmit={this.submitHanler}>
-          <div>
+        <form className="form-org" onSubmit={this.submitHanler}>
+          <div div className="title">
             <label>Title: </label>
             <input
               name="title"
               value={this.state.title}
               onChange={this.chnageHandler}
-              placeholder="Post Title"
+              placeholder="Add Title"
             />
           </div>
-          <div>
-            <label>Description: </label>
+          <div className="Des">
+            <label>Descrip: </label>
             <input
               name="description"
               value={this.state.description}
               onChange={this.chnageHandler}
-              placeholder="Post Description"
+              placeholder="Add Description"
             />
           </div>
           <div>
@@ -101,7 +94,7 @@ export default class PostForm extends Component {
               name="place"
               value={this.state.place}
               onChange={this.chnageHandler}
-              placeholder="Post Place"
+              placeholder="Add Place"
             />
           </div>
           <div>
@@ -110,10 +103,10 @@ export default class PostForm extends Component {
               name="photo"
               value={this.state.photo}
               onChange={this.chnageHandler}
-              placeholder="Post Photo"
+              placeholder="Add Photo"
             />
           </div>
-
+          <br/>
           <button type="submit">Add Post</button>
         </form>
       </div>

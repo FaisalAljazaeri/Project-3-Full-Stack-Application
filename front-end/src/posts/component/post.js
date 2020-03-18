@@ -1,5 +1,5 @@
 import React from "react";
-import "./post.css";
+import "../post.css";
 import PostForm from "./PostForm";
 //Creat class Post
 class Post extends React.Component {
@@ -10,7 +10,6 @@ class Post extends React.Component {
       editFormActive: false
     };
   }
-
   // Call parent method to delete post by ID
   deletePost = () => {
     this.props.deletePost(this.props.id);
@@ -25,26 +24,24 @@ class Post extends React.Component {
   editPost = (id, post) => {
     this.props.editPost(id, post);
   };
-
   render() {
     // Delete button that appears if the organization that made the post
     // is logged in
     // add the method to Edit button
     const buttons = this.props.organizationLogged ? (
       <div>
-        <button onClick={this.updatePost}>Edit Post</button>
+        <button className="edit-button" onClick={this.updatePost}>Edit Post</button>
         <button onClick={this.deletePost}>Delete Post</button>
       </div>
     ) : (
       ""
     );
-
     //Definition allUsers To show all users through it
     const allUsers = this.props.users.map((user, index) => (
       <p key={index}>{user.name}</p>
     ));
     return (
-      <div className="post">
+      <div className="post" style={this.state.editFormActive ? {height : "800px"} : {}}>
         {/* Title & Photo & Description & Place & Organization.name*/}
         <h2>{this.props.title}</h2>
         <p className="icon">
@@ -59,10 +56,8 @@ class Post extends React.Component {
           {this.props.place}
         </p>
         <p>{this.props.organization.name}</p>
-
         <strong>Users:</strong>
         {allUsers}
-
         {buttons}
         {this.state.editFormActive ? (
           //render the data as props to PostForm
@@ -81,5 +76,4 @@ class Post extends React.Component {
     );
   }
 }
-
 export default Post;

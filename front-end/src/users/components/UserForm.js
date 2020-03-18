@@ -22,7 +22,7 @@ export default class UserForm extends Component {
     const userName = this.state.name;
     this.setState({
       name: ""
-    })
+    }) 
     //props the method Userlog from User 
     if ( this.props.UserLog){
     this.props.UserLog(userName);}
