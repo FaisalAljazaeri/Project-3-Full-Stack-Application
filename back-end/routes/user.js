@@ -4,7 +4,9 @@ const express = require("express");
 //Require Mongoose Model for Users
 const User = require("../model/User");
 
- const bcrypt = require("bcrypt");
+const bcrypt = require("bcrypt");
+
+const jwt = require("jsonwebtoken");
 
 //Instantiate a Router (min app that only handles routes)
 const router = express.Router();
@@ -85,6 +87,50 @@ router.post("/api/users", (req, res) => {
           }
       })
       .catch(err => res.status(500).json({ msg: err.message }));
+});
+
+/**
+ * @method : POST
+ * @route : /api/users/login
+ * @action :  Login
+ * @desc    : Login User
+ */
+router.post("/api/users/login", (req, res) => {
+    // Get user object from the request body
+    const user = req.body.user;
+    // validate user inputs
+    if (!user.name || !user.password) {
+        return res
+            .status(500)
+            .json({ msg: "Please enter both name and password" });
+    }
+    // Authenricate user
+    User.findOne({ name: user.name })
+        .then(userDoc => {
+            // If the name doesn't exist return error message
+            if (!userDoc) {
+                return res.status(500).json({ msg: "Name doesn't exist" });
+            }
+            // Check if the given password matches the one in the database
+            return bcrypt.compare(user.password, userDoc.password);
+        })
+        .then(same => {
+            // If the 'same' parameter is true that means the password is correct
+            if (same) {
+                // Issue token for authenticated user
+                const payload = { name: user.name };
+                const token = jwt.sign(payload, process.env.JWT_SECRET, {
+                    expiresIn: "12h"
+                });
+                // Save the issued token in cookies
+                return res.cookie("userToken", token, { httpOnly: true })
+                    .status(200)
+                    .end();
+            }
+            // Case of wrong password
+            return res.status(500).json({ msg: "wrong password" });
+        })
+        .catch(err => res.status(500).json({ msg: err.message }));
 });
 
 /**
