@@ -22,7 +22,7 @@ const saveOrganization = (organization, res) => {
           // Create new organization in the database
           return Organization.create(organization);
       })
-      .then(organization => res.status(201).json({ organization :{organization:organization.name}}))
+      .then(organization => res.status(201).json({ organization :{name:organization.name, id: organization._id}}))
       .catch(err => res.status(500).json({ msg: err.message }));
 };
 

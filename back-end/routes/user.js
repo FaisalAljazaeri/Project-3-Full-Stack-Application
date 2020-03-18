@@ -23,7 +23,7 @@ const saveUser = (user, res) => {
             // Create new user in the database
             return User.create(user);
         })
-        .then(user => res.status(201).json({ user:{name:user.name}}))
+        .then(user => res.status(201).json({ user:{name:user.name, id: user._id}}))
         .catch(err => res.status(500).json({ msg: err.message }));
 };
 
