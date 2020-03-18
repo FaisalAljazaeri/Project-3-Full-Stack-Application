@@ -7,6 +7,8 @@ const User = require("../model/User");
 const bcrypt = require("bcrypt");
 
 const jwt = require("jsonwebtoken");
+ 
+
 
 //Instantiate a Router (min app that only handles routes)
 const router = express.Router();
