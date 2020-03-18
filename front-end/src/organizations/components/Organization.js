@@ -4,43 +4,36 @@ import OrganizationForm from "./OrganizationForm";
 import { getAllOrganizations } from "../api";
 import PostForm from "../../posts/component/PostForm";
 import {deleteOrganization} from '../api'
-
+import '../organization.css';
 export default class Organization extends Component {
     constructor(props) {
         super(props);
-
         // By default theres no organization logged in, so no posts will render
         this.state = {
             organizations: [],
             currentOrganizationPosts: [],
             organizationLogged: false,
             organizationId: ""
-           
         };
     }
-  
     componentDidMount() {
         // Get all Organizations from API and load them in the state
         getAllOrganizations()
             .then(response => {
-                
                 this.setState({
                     organizations: response.data.organizations
                 });
             })
             .catch(err => console.log(err));
     }
-
     // Change the state of oaranizations posts so they can be rendered
     organizationLogin = name => {
         // get organizations array from state
         const { organizations } = this.state;
-
         // Find the selected organization by the passed name
         const selectedOrganization = organizations.find(
             org => org.name.toLowerCase() === name.toLowerCase()
         );
-
         // check if an organization is found by name
         // update the current organization to render its posts
         if (selectedOrganization) {
@@ -50,15 +43,12 @@ export default class Organization extends Component {
                     post.organization.name.toLowerCase() ===
                     selectedOrganization.name.toLowerCase()
             );
-
             // Since an organization is authenticated by name the state
             // will hold its posts and logged state is true
             this.setState({
                 currentOrganizationPosts: organizationPosts,
                 organizationLogged: true,
                 organizationId: selectedOrganization._id
-              
-            
             });
         } else {
             // If no organization is found by name don't render any posts
@@ -69,19 +59,16 @@ export default class Organization extends Component {
             });
         }
     };
-
     // Pass the posts array to parent (App) to keep it in the state
     setPosts = posts => {
         this.props.setPosts(posts);
     };
-
     // Set new organization's posts array
     setOrganizationPosts = posts => {
         this.setState({
             currentOrganizationPosts: posts
         });
     };
-
     // Add new post to the organization posts state
     addPost = post => {
         this.setState({
@@ -93,37 +80,30 @@ export default class Organization extends Component {
     };
     //Creat Fountain Dlete Organization By Id
     deleteOrg=()=>{
-       
         deleteOrganization(this.state.organizationId)
         .then(response=>{
             this.setState({
                 organizationLogged: false,
                 currentOrganizationPosts:[],
                 organizationId:""
- 
             })
         })
-    
     .catch(error => {
         console.log(error);})
-        
     }
     render() {
         return (
-            <div>
+            <div className="div-org">
                 <OrganizationForm organizationLogin={this.organizationLogin} />
-               
                 {/* Render add post form only when an organization is logged in */}
                 {this.state.organizationLogged ? (<>
-                <button onClick={this.deleteOrg}>Delete organization</button>
+                <button className="delete-org-button" onClick={this.deleteOrg}>Delete organization</button>
                     <PostForm
                         organizationId={this.state.organizationId}
                         addPost={this.addPost}
                     />
                     </>
                 ) : (
-                 
-                   
                     ""
                 )}
                 <Posts
