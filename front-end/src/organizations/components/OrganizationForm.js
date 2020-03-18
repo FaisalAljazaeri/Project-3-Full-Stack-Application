@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import '../organization.css';
+import './organization.css';
 export default class OrganizationForm extends Component {
     constructor(props) {
         super(props);
