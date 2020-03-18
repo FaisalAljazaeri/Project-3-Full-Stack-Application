@@ -26,6 +26,21 @@ const saveUser = (user, res) => {
         .then(user => res.status(201).json({ user:{name:user.name}}))
         .catch(err => res.status(500).json({ msg: err.message }));
 };
+
+/**
+ * @method : GET
+ * @route : /api/users/logout
+ * @action :  Logout
+ * @desc    : logout users
+ */
+router.get('/api/users/logout', (req,res) => {
+    if(req.cookies.userToken){
+        res.status(200).clearCookie("userToken").end();
+    }else{
+        res.status(500).json({error: 'Failed to logout'})
+    }
+})
+
 /**
  * @method : GET
  * @route : /api/user
