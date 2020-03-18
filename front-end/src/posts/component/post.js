@@ -24,6 +24,20 @@ class Post extends React.Component {
   editPost = (id, post) => {
     this.props.editPost(id, post);
   };
+<<<<<<< HEAD
+=======
+
+  // Method to resgiter a User to a Post by ID
+  joinPost = () => {
+    this.props.joinPost(this.props.id);
+  };
+
+  // Method to unresgiter
+  leavePost = () => {
+    this.props.leavePost(this.props.id);
+  };
+
+>>>>>>> af5bbdc35adada3d602b86d9f3890ecbe1f073b0
   render() {
     // Delete button that appears if the organization that made the post
     // is logged in
@@ -36,6 +50,24 @@ class Post extends React.Component {
     ) : (
       ""
     );
+<<<<<<< HEAD
+=======
+
+    // Button to display for a user and if they click they can join the post
+    const joinPostButton = this.props.joinPost ? (
+      <button onClick={this.joinPost}>Join</button>
+    ) : (
+      ""
+    );
+
+    // button to remove the post that has resgiter before
+    const leavePostButton = this.props.leavePost ? (
+      <button onClick={this.leavePost}>Leave</button>
+    ) : (
+      ""
+    );
+
+>>>>>>> af5bbdc35adada3d602b86d9f3890ecbe1f073b0
     //Definition allUsers To show all users through it
     const allUsers = this.props.users.map((user, index) => (
       <p key={index}>{user.name}</p>
@@ -59,6 +91,7 @@ class Post extends React.Component {
         <strong>Users:</strong>
         {allUsers}
         {buttons}
+        {joinPostButton} {leavePostButton}
         {this.state.editFormActive ? (
           //render the data as props to PostForm
           <PostForm
