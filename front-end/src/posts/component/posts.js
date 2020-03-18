@@ -81,7 +81,7 @@ class Posts extends React.Component {
 
     // remove the new registered user from the post's list of users
     const updatedUsersList = post.users.filter(
-      userId => userId !== this.props.userId
+      userId => userId === this.props.userId
     );
 
     // Make an API request to update list of posts's users
