@@ -4,9 +4,24 @@ const express = require("express");
 //Require Mongoose Model for Users
 const User = require("../model/User");
 
+ const bcrypt = require("bcrypt");
+
 //Instantiate a Router (min app that only handles routes)
 const router = express.Router();
-
+//method to Add User to DataBase
+const saveUser = (user, res) => {
+    // Hash the password before saving the user to the DB
+    bcrypt
+        .hash(user.password, 10)
+        .then(hashedPassword => {
+            // Replace the plain password with the hashed password
+            user.password = hashedPassword;
+            // Create new user in the database
+            return User.create(user);
+        })
+        .then(user => res.status(201).json({ user:{name:user.name}}))
+        .catch(err => res.status(500).json({ msg: err.message }));
+};
 /**
  * @method : GET
  * @route : /api/user
@@ -57,10 +72,19 @@ router.get("/api/users/:id", (req, res) => {
  * @desc    Create a new user
  */
 router.post("/api/users", (req, res) => {
-    // Add the user recieved from the request body to the database
-    User.create(req.body.user)
-        .then(user => res.status(201).json({ user }))
-        .catch(error => res.status(500).json({ error }));
+  // Get the user object from the request body
+  const newUser = req.body.user;
+  // Check if the name already exists
+  User.findOne({ name: newUser.name })
+      .then(user => {
+          if (user) {
+              return res.status(500).json({ msg: "Name already exists." });
+          } else {
+              // In case the name is not already used save the new user.
+              saveUser(newUser, res);
+          }
+      })
+      .catch(err => res.status(500).json({ msg: err.message }));
 });
 
 /**
