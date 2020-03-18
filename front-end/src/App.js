@@ -24,8 +24,8 @@ class App extends React.Component {
     this.setState({ posts: posts });
   };
 //Creat Fountain  to add new User in database
-  addnewUser = name => {
-    createNewUser(name)
+  addnewUser = user => {
+    createNewUser(user)
       .then(res => {
         console.log(res.data.user);
       })

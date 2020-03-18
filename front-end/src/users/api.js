@@ -6,8 +6,8 @@ const getAllUsers = () => {
     return axios.get(`${apiUrl}/users`);
 };
 //post New User 
-const createNewUser =(name)=>{
-    return axios.post(`${apiUrl}/users`,{user:{name}})
+const createNewUser =(user)=>{
+    return axios.post(`${apiUrl}/users`,{user})
 }
 
 // Delete user By ID
