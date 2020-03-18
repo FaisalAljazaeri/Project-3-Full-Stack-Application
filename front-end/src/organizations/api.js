@@ -6,8 +6,8 @@ const getAllOrganizations = () => {
     return axios.get(`${apiUrl}/organizations`);
 };
 //Add New Organization
-const addNewOrganization =(name)=>{
-    return axios.post(`${apiUrl}/organizations`,{organization:{name}})
+const addNewOrganization =(organization)=>{
+    return axios.post(`${apiUrl}/organizations`,{organization})
 }
 // Delete Organization by ID
 

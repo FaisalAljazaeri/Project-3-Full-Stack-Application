@@ -4,30 +4,32 @@ export default class OrganizationForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: ""
+            name: "",
+            password: ""
         };
     }
     // Set state with the new value of the input field
     changeHandler = e => {
         this.setState({
-            name: e.target.value
+            [e.target.name]: e.target.value
         });
     };
-    // Get the name of the organization from the form state
+    // Get the data of the organization from the form state
     submitHandler = e => {
         e.preventDefault();
-        // The inputed name in a variable
-        const organizationName = this.state.name;
+        // The inputed organization in a variable
+        const organization = {name: this.state.name, password: this.state.password};
         // Return the state to the original so the input field value is cleared
         this.setState({
-            name: ""
+            name: "",
+            password: ""
         });
         // Call the method of the organization login in the parent
-        // and pass it the name of the org to be logged in
+        // and pass it the object of the org to be logged in
         if ( this.props.organizationLogin){
-            this.props.organizationLogin(organizationName);}
+            this.props.organizationLogin(organization);}
             else if (this.props.addnewOrg){
-            this.props.addnewOrg(organizationName);}
+            this.props.addnewOrg(organization);}
           };
     render() {
         return (
@@ -36,10 +38,20 @@ export default class OrganizationForm extends Component {
                     <label className="label-org">Organization Name: </label>
                     <br/>
                     <input
-                    placeholder="Write organization name"
+                        name="name"
+                        placeholder="Write organization name"
                         value={this.state.name}
                         onChange={this.changeHandler}
-                    ></input>
+                    />
+                    <label className="label-org">Organization Password: </label>
+                    <br/>
+                    <input
+                        name="password"
+                        type="password"
+                        placeholder="Write organization password"
+                        value={this.state.password}
+                        onChange={this.changeHandler}
+                    />
                     <button type="submit">Submit</button>
                 </form>
             </div>

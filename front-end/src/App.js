@@ -34,8 +34,8 @@ class App extends React.Component {
       });
   };
   //Creat Fountain  to add new Organization in database
-  addnewOrg = name => {
-    addNewOrganization(name)
+  addnewOrg = organization => {
+    addNewOrganization(organization)
       .then(res => {
         console.log(res.data.organization);
       })
