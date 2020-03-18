@@ -45,6 +45,19 @@ router.get('/api/organizations', (req, res) => {
     });
   });
 
+/**
+ * @method : GET
+ * @route : /api/organizations/logout
+ * @action :  Logout
+ * @desc    : logout organizations
+ */
+router.get('/api/organizations/logout', (req,res) => {
+    if(req.cookies.organizationToken){
+        res.status(200).clearCookie("organizationToken").end();
+    }else{
+        res.status(500).json({error: 'Failed to logout'})
+    }
+})
 
 /**
  * @method GET
