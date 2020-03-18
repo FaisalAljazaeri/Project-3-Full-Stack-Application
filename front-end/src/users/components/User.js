@@ -43,6 +43,40 @@ export default class User extends Component {
         });
     };
 
+    // Get the name of the user by the ID
+    getUsername = (userId) => {
+        return this.state.users.find(user => user._id === userId);
+    }
+
+    // Method to register a User to a Post and add it to the list of their registered
+    // and removing it from the list of unregistered posts
+    joinPost = postId => {
+        // Remove the post by id from the unregistered posts
+        const unregisteredPosts = this.state.unregisteredPosts.filter(
+            post => post._id !== postId
+        );
+        
+        // Get the new post that the user registered for
+        const post = this.state.unregisteredPosts.find(
+            post => post._id === postId
+        );
+        
+        // Get the current user's name and push it to the list of users
+        // registered for the selected Post
+        const user = this.getUsername(this.state.userLogged);
+        post.users.push(user);
+        
+        // After adding the new user to the post, push the post to the list
+        // of the registered user posts
+        const registeredPosts = [...this.state.registeredPosts, post];
+        
+        // Set the changes in both registered and unregistered user posts
+        this.setState({
+            registeredPosts,
+            unregisteredPosts
+        });
+    };
+
     //create method login
     UserLog = name => {
         const users = this.state.users;
@@ -79,34 +113,31 @@ export default class User extends Component {
         }
     };
 
-    
     // Create Delete Function for user
     deleteUser = () => {
-
         deleteUserById(this.state.userLogged)
             .then(response => {
-                // Create Varible for control to Array for User 
-                // & Create ForLoop to check all index 
+                // Create Varible for control to Array for User
+                // & Create ForLoop to check all index
                 // if user ID = userlog & delete one index
-                const posts = [...this.state.registeredPosts]
+                const posts = [...this.state.registeredPosts];
                 posts.forEach(post => {
-                    const index = post.users.findIndex(userId => 
-                    this.state.userLogged === userId
-                    )
-                    post.users.splice(index, 1)
-                })
+                    const index = post.users.findIndex(
+                        userId => this.state.userLogged === userId
+                    );
+                    post.users.splice(index, 1);
+                });
 
                 this.setState({
                     UserLog: false,
                     userLogged: "",
                     registeredPosts: posts
-                })
+                });
             })
             .catch(error => {
-                console.log('ERROR: ', error)
-            })
-        }
-
+                console.log("ERROR: ", error);
+            });
+    };
 
     render() {
         const SelectedPosts = this.state.showRegisteredPosts ? (
@@ -126,6 +157,7 @@ export default class User extends Component {
                 <Posts
                     posts={this.state.unregisteredPosts}
                     setPosts={this.props.setPosts}
+                    joinPost={this.joinPost}
                 />
             </>
         );

@@ -53,6 +53,11 @@ class Posts extends React.Component {
       .catch(err => console.log(err));
   };
 
+  // Method to register a User to Post by ID
+  joinPost = postId => {
+    this.props.joinPost(postId);
+  }
+
   render() {
     let allposts = <h4>No setPosts!</h4>;
     if (this.props.posts.length > 0) {
@@ -71,6 +76,7 @@ class Posts extends React.Component {
             organizationLogged={this.props.organizationLogged}
             deletePost={this.deletePost}
             editPost={this.editPost}
+            joinPost={this.props.joinPost ? this.joinPost : null}
           />
         );
       });
