@@ -3,11 +3,27 @@ const express = require("express");
 
 //Require Mongoose Model for Organization
 const Organization = require('../model/Organization')
+
 //Require Mongoose Model for Post
 const Post=require('../model/Post')
 //Instantiate a Router (min app that only handles routes)
 const router = express.Router();
 
+const bcrypt = require("bcrypt");
+
+const saveOrganization = (organization, res) => {
+  // Hash the password before saving the organization to the DB
+  bcrypt
+      .hash(organization.password, 10)
+      .then(hashedPassword => {
+          // Replace the plain password with the hashed password
+          organization.password = hashedPassword;
+          // Create new organization in the database
+          return Organization.create(organization);
+      })
+      .then(organization => res.status(201).json({ organization :{organization:organization.name}}))
+      .catch(err => res.status(500).json({ msg: err.message }));
+};
 
 /**
  * @method GET
@@ -64,10 +80,19 @@ router.get('/api/organizations/:id', (req, res) => {
  * @desc    Create a new organizations
  */
 router.post("/api/organizations", (req, res) => {
-    // Add the organizations recieved from the request body to the database
-    Organization.create(req.body.organization)
-        .then(organization => res.status(201).json({ organization }))
-        .catch(error => res.status(500).json({ error }));
+       // Get the Organization object from the request body
+       const newOrganization = req.body.organization;
+       // Check if the name already exists
+       Organization.findOne({ name: newOrganization.name })
+           .then(organization => {
+               if (organization) {
+                   return res.status(500).json({ msg: "Name already exists." });
+               } else {
+                   // In case the name is not already used save the new Organization.
+                   saveOrganization(newOrganization, res);
+               }
+           })
+           .catch(err => res.status(500).json({ msg: err.message }));
 });
 
 
