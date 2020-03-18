@@ -10,6 +10,7 @@ const Post=require('../model/Post')
 const router = express.Router();
 
 const bcrypt = require("bcrypt");
+const jwt = require('jsonwebtoken');
 
 const saveOrganization = (organization, res) => {
   // Hash the password before saving the organization to the DB
@@ -93,6 +94,50 @@ router.post("/api/organizations", (req, res) => {
                }
            })
            .catch(err => res.status(500).json({ msg: err.message }));
+});
+
+/**
+ * @method : POST
+ * @route : /api/organization/login
+ * @action :  Login
+ * @desc    : Login Orgnization
+ */
+router.post("/api/organizations/login", (req, res) => {
+  // Get Organization object from the request body
+  const organization = req.body.organization;
+  // validate user inputs
+  if (!organization.name || !organization.password) {
+      return res
+          .status(500)
+          .json({ msg: "Please enter both name and password" });
+  }
+  // Authenricate Organization
+  Organization.findOne({ name: organization.name })
+      .then(organizationDoc => {
+          // If the name doesn't exist return error message
+          if (!organizationDoc) {
+              return res.status(500).json({ msg: "Name doesn't exist" });
+          }
+          // Check if the given password matches the one in the database
+          return bcrypt.compare(organization.password, organizationDoc.password);
+      })
+      .then(same => {
+          // If the 'same' parameter is true that means the password is correct
+          if (same) {
+              // Issue token for authenticated Organization
+              const payload = { name: organization.name };
+              const token = jwt.sign(payload, process.env.JWT_SECRET, {
+                  expiresIn: "12h"
+              });
+              // Save the issued token in cookies
+              return res.cookie("organizationToken", token, { httpOnly: true })
+                  .status(200)
+                  .end();
+          }
+          // Case of wrong password
+          return res.status(500).json({ msg: "wrong password" });
+      })
+      .catch(err => res.status(500).json({ msg: err.message }));
 });
 
 
