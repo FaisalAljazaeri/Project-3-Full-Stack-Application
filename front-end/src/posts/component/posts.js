@@ -3,7 +3,7 @@ import React from "react";
 //import Post from ./post
 import Post from "./post";
 //import getAllPosts from ./api
-import { getAllPosts, deletePostById } from "./api";
+import { getAllPosts, deletePostById, editPostById } from "./api";
 //Creat class Posts
 class Posts extends React.Component {
   //Creat componentDidMount Inside getAllPosts Show allPosts
@@ -53,9 +53,26 @@ class Posts extends React.Component {
       .catch(err => console.log(err));
   };
 
+  // Get the post by it's id from the posts list passed in props
+  getPostById = (postId) => {
+    return this.props.posts.find(post => post._id === postId);
+  }
+
   // Method to register a User to Post by ID
   joinPost = postId => {
-    this.props.joinPost(postId);
+    // Get the current post that the user is registering for
+    const post = this.getPostById(postId);
+
+    // Add the new registered user to the post's list of users
+    const updatedUsersList = [...post.users, this.props.userId];
+
+    // Make an API request to update list of posts's users
+    editPostById(postId, {users: updatedUsersList})
+      .then(res => {
+        // Pass the updated Post ID to parent to set its state
+        this.props.joinPost(postId);
+      })
+      .catch(err => console.log(err));
   }
 
   render() {

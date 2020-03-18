@@ -149,6 +149,7 @@ export default class User extends Component {
                 <Posts
                     posts={this.state.registeredPosts}
                     setPosts={this.props.setPosts}
+                    userId={this.state.userLogged}
                 />
             </>
         ) : (
@@ -157,6 +158,7 @@ export default class User extends Component {
                 <Posts
                     posts={this.state.unregisteredPosts}
                     setPosts={this.props.setPosts}
+                    userId={this.state.userLogged}
                     joinPost={this.joinPost}
                 />
             </>
