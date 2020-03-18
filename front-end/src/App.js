@@ -17,7 +17,6 @@ class App extends React.Component {
     this.state = {
       posts: []
     };
-
     console.log("API URL", apiURL);
   }
   ///Creat setPosts
@@ -51,12 +50,11 @@ class App extends React.Component {
         <Router>
           <nav>
             <Link to="/">Home</Link>
-
             <Link to="/User">User</Link>
-
             <Link to="/Organization">Organization</Link>
           </nav>
-
+          <img src="https://schools.district279.org/fb/images/stories/FB/doc/Volunteer/volunteer_logo2.png"/>
+          {/* <h1> Web Site No Name Yet ..</h1> */}
           <div>
             <Route
               exact
@@ -68,14 +66,12 @@ class App extends React.Component {
               path="/"
               render={() => <OrganizationForm addnewOrg={this.addnewOrg} />}
             />
-
             <Route
               path="/User"
               render={() => (
                 <User posts={this.state.posts} setPosts={this.setPosts} />
               )}
             />
-
             <Route
               path="/Organization"
               render={() => (
@@ -91,5 +87,4 @@ class App extends React.Component {
     );
   }
 }
-
 export default App;
