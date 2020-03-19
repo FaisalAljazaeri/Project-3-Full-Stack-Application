@@ -24,8 +24,8 @@ class App extends React.Component {
     this.setState({ posts: posts });
   };
 //Creat Fountain  to add new User in database
-  addnewUser = name => {
-    createNewUser(name)
+  addnewUser = user => {
+    createNewUser(user)
       .then(res => {
         console.log(res.data.user);
       })
@@ -34,8 +34,8 @@ class App extends React.Component {
       });
   };
   //Creat Fountain  to add new Organization in database
-  addnewOrg = name => {
-    addNewOrganization(name)
+  addnewOrg = organization => {
+    addNewOrganization(organization)
       .then(res => {
         console.log(res.data.organization);
       })

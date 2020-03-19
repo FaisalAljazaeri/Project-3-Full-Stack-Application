@@ -6,12 +6,18 @@ const getAllOrganizations = () => {
     return axios.get(`${apiUrl}/organizations`);
 };
 //Add New Organization
-const addNewOrganization =(name)=>{
-    return axios.post(`${apiUrl}/organizations`,{organization:{name}})
+const addNewOrganization =(organization)=>{
+    return axios.post(`${apiUrl}/organizations`,{organization})
 }
 // Delete Organization by ID
 
 const deleteOrganization = (id) => {
     return axios.delete(`${apiUrl}/organizations/${id}`);
   }
-export { getAllOrganizations ,addNewOrganization,deleteOrganization};
+
+// Login Organization
+const organizationLogin = organization => {
+    return axios.post(`${apiUrl}/organizations/login`, {organization})
+}
+
+export { getAllOrganizations ,addNewOrganization,deleteOrganization, organizationLogin};

@@ -3,7 +3,7 @@ import Posts from "../../posts/component/posts";
 import OrganizationForm from "./OrganizationForm";
 import { getAllOrganizations } from "../api";
 import PostForm from "../../posts/component/PostForm";
-import {deleteOrganization} from '../api'
+import {deleteOrganization, organizationLogin} from '../api'
 import './organization.css';
 export default class Organization extends Component {
     constructor(props) {
@@ -26,36 +26,48 @@ export default class Organization extends Component {
             })
             .catch(err => console.log(err));
     }
+
+    // Try to Login Organization with the submitted data
+    authenticateOrganization = async organization => {
+        try{
+            const res = await organizationLogin(organization);
+            this.setState({
+                organizationLogged: true,
+                organizationId: res.data.organization.id
+            });
+
+            return true
+        }
+        catch(err) {
+            console.log(err);
+        }
+    }
+
     // Change the state of oaranizations posts so they can be rendered
-    organizationLogin = name => {
-        // get organizations array from state
-        const { organizations } = this.state;
-        // Find the selected organization by the passed name
-        const selectedOrganization = organizations.find(
-            org => org.name.toLowerCase() === name.toLowerCase()
-        );
-        // check if an organization is found by name
+    organizationLogin = async organization => {
+        // Try Login Request for the submitted Organization data
+        const loginSucess = await this.authenticateOrganization(organization);
+
+        // check if the organization is authenticated
         // update the current organization to render its posts
-        if (selectedOrganization) {
-            // Get all posts by the organization with the passed name
+        if (loginSucess) {
+            // Get all posts by the organization with the ID
             const organizationPosts = this.props.posts.filter(
-                post =>
-                    post.organization.name.toLowerCase() ===
-                    selectedOrganization.name.toLowerCase()
+                post => 
+                post.organization._id === this.state.organizationId
             );
             // Since an organization is authenticated by name the state
-            // will hold its posts and logged state is true
+            // will hold its posts.
             this.setState({
                 currentOrganizationPosts: organizationPosts,
-                organizationLogged: true,
-                organizationId: selectedOrganization._id
             });
         } else {
             // If no organization is found by name don't render any posts
             // and set logged back to false since it's not authenticated
             this.setState({
                 currentOrganizationPosts: [],
-                organizationLogged: false
+                organizationLogged: false,
+                organizationId: ""
             });
         }
     };

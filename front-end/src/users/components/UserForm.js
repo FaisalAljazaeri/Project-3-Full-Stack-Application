@@ -4,30 +4,32 @@ import React, { Component } from "react";
 export default class UserForm extends Component {
   constructor(props) {
     super(props);
-    //create state for empty name
+    //create state for empty name and password
     this.state = {
-      name: ""
+      name: "",
+      password: ""
     };
   }
   //create method to take the input from users
   OnchangeHandler = e => {
     this.setState({
-      name: e.target.value
+      [e.target.name]: e.target.value
     });
   };
   //create method for submit button 
   OnsubmitHandler = e => {
     e.preventDefault();
-    // create varible to take the name
-    const userName = this.state.name;
+    // create varible to take the user
+    const user = {name: this.state.name, password: this.state.password};
     this.setState({
-      name: ""
+      name: "",
+      password: ""
     }) 
     //props the method Userlog from User 
     if ( this.props.UserLog){
-    this.props.UserLog(userName);}
+    this.props.UserLog(user);}
     else if (this.props.addnewUser){
-    this.props.addnewUser(userName);}
+    this.props.addnewUser(user);}
   };
   render() {
     return (
@@ -36,10 +38,21 @@ export default class UserForm extends Component {
         <form onSubmit={this.OnsubmitHandler}>
           <label>User Name :</label>
           <input
+            name="name"
             placeholder="please write your name "
             value={this.state.name}
             onChange={this.OnchangeHandler}
           />
+
+          <label>Password :</label>
+          <input 
+            name="password"
+            type="password"
+            placeholder="please write your password "
+            value={this.state.password}
+            onChange={this.OnchangeHandler}
+          />
+
           <button type="submit">submit</button>
         </form>
       </div>

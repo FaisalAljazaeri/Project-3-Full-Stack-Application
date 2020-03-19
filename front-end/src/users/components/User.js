@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import Posts from "../../posts/component/posts";
 import UserForm from "./UserForm";
-import { getAllUsers, deleteUserById } from "../api";
+import { getAllUsers, deleteUserById, loginUser } from "../api";
 
 export default class User extends Component {
   constructor(props) {
@@ -31,9 +31,9 @@ export default class User extends Component {
       .catch(err => console.log(err));
   }
 
-  checkPostRegisteration = (post, username) => {
+  checkPostRegisteration = (post, userId) => {
     return post.users.find(
-      user => username.toLowerCase() === user.name.toLowerCase()
+      user => user._id === userId
     );
   };
 
@@ -99,21 +99,35 @@ export default class User extends Component {
     });
   };
 
-  //create method login
-  UserLog = name => {
-    const users = this.state.users;
+  // Make Login Request for the user and check if they are authenticated
+  authenticateUser = async user => {
+    try {
+      const res = await loginUser(user);
+      this.setState({
+        UserLog: true,
+        userLogged: res.data.user.id,
+        userName: res.data.user.name
+      });
 
-    // find the selected name that enter by user
-    const selectedUsersName = users.find(
-      user => user.name.toLowerCase() === name.toLowerCase()
-    );
-    //check if the names found
-    if (selectedUsersName) {
+      return true
+    }
+    catch (err) {
+       console.log(err);
+    }
+  }
+
+  //create method login
+  UserLog = async user => {
+    // Try Login Request for the submitted User data
+    const loginSucess = await this.authenticateUser(user);
+
+    //check if the login is successfull
+    if (loginSucess) {
       const registeredPosts = [];
       const unregisteredPosts = [];
 
       this.props.posts.forEach(post => {
-        if (this.checkPostRegisteration(post, name)) {
+        if (this.checkPostRegisteration(post, this.state.userLogged)) {
           registeredPosts.push(post);
         } else {
           unregisteredPosts.push(post);
@@ -122,13 +136,11 @@ export default class User extends Component {
 
       //create setStete if found return true
       this.setState({
-        UserLog: true,
         registeredPosts,
-        unregisteredPosts,
-        userLogged: selectedUsersName._id
+        unregisteredPosts
       });
     } else {
-      //if the name not found return nothing
+      //if the user is not authenticated return nothing
       this.setState({
         UserLog: false
       });
