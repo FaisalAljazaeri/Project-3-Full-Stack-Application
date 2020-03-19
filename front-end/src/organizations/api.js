@@ -17,7 +17,13 @@ const deleteOrganization = (id) => {
 
 // Login Organization
 const organizationLogin = organization => {
-    return axios.post(`${apiUrl}/organizations/login`, {organization})
+    return axios.post(
+        `${apiUrl}/organizations/login`, 
+        {organization},
+        {
+            withCredentials: true,
+            credentials: "include"
+        })
 }
 
 export { getAllOrganizations ,addNewOrganization,deleteOrganization, organizationLogin};

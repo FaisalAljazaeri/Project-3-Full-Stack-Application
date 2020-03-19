@@ -17,7 +17,13 @@ const deleteUserById =(id)=>{
 
 // Login User
 const loginUser = (user) => {
-    return axios.post(`${apiUrl}/users/login`, {user})
+    return axios.post(
+        `${apiUrl}/users/login`, 
+        {user},
+        {
+            withCredentials: true,
+            credentials: "include"
+        })
 };
   
 export { getAllUsers ,createNewUser, deleteUserById, loginUser };
