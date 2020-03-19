@@ -36,15 +36,18 @@ export default class UserForm extends Component {
         //create form (lable & input & button)
       <div>
         <form onSubmit={this.OnsubmitHandler}>
-          <label>User Name :</label>
+          <label className="label-user">User Name :</label>
+          <br/>
           <input
             name="name"
             placeholder="please write your name "
             value={this.state.name}
             onChange={this.OnchangeHandler}
           />
+          <br/>
 
-          <label>Password :</label>
+          <label className="label-user">Password :</label>
+          <br/>
           <input 
             name="password"
             type="password"
@@ -52,9 +55,10 @@ export default class UserForm extends Component {
             value={this.state.password}
             onChange={this.OnchangeHandler}
           />
-
-          <button type="submit">submit</button>
+          <br/>
+          <button type="submit">Submit</button>
         </form>
+        <br/>
       </div>
     );
   }

@@ -43,6 +43,7 @@ export default class OrganizationForm extends Component {
                         value={this.state.name}
                         onChange={this.changeHandler}
                     />
+                    <br/>
                     <label className="label-org">Organization Password: </label>
                     <br/>
                     <input
@@ -52,6 +53,7 @@ export default class OrganizationForm extends Component {
                         value={this.state.password}
                         onChange={this.changeHandler}
                     />
+                    <br/>
                     <button type="submit">Submit</button>
                 </form>
             </div>

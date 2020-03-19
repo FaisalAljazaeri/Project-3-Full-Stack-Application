@@ -3,8 +3,8 @@ nav {
   margin: 0%;
   padding: 0%;
   overflow: hidden;
-  border: 1px solid rgba(197, 162, 115, 0);
-  background: rgba(212, 144, 55, 0.438);
+  border: 1px solid rgba(36, 28, 18, 0);
+  background: rgba(116, 179, 204, 0.76);
   -webkit-perspective: 1000px;
   font-family: Georgia, serif;
   font-size: 20px;
@@ -12,10 +12,12 @@ nav {
   border-bottom-left-radius: 10px;
 }
 img{
-  width: 100px;
-  height: 100px;
+  width: 200px;
+  height: 200px;
   overflow: hidden;
   margin-top: 10px;
+  padding-left: 30px;
+  padding-top: 30px;
 }
 nav a {
   display: block;
@@ -26,7 +28,7 @@ nav a {
   float: left;
 }
 nav a:hover:not(.active) {
-  background-color:  rgba(194, 173, 144, 0.562);
+  background-color:  rgba(112, 109, 105, 0.562);
 }
 link{
   text-align: center;
