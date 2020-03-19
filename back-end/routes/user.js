@@ -8,7 +8,8 @@ const bcrypt = require("bcrypt");
 
 const jwt = require("jsonwebtoken");
  
-
+// Autherization Middleware
+const auth = require('../middlewares/userAuth');
 
 //Instantiate a Router (min app that only handles routes)
 const router = express.Router();
@@ -163,7 +164,7 @@ router.post("/api/users/login", (req, res) => {
  * @action  UPDATE
  * @desc    Update a user by ID
  */
-router.patch("/api/users/:id", (req, res) => {
+router.patch("/api/users/:id", auth, (req, res) => {
     // Find the user with the passed ID
     User.findById(req.params.id)
         .then(user => {
@@ -193,7 +194,7 @@ router.patch("/api/users/:id", (req, res) => {
  * @action  : Destory
  * @desc    : delete an user by user ID
  */
-router.delete("/api/users/:id", (req, res) => {
+router.delete("/api/users/:id", auth, (req, res) => {
     User.findById(req.params.id)
         .then(user => {
             if (user) {

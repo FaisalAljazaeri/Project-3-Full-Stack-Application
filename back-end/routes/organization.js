@@ -12,6 +12,9 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 
+// Autherization Middleware 
+const auth = require('../middlewares/organizationAuth');
+
 const saveOrganization = (organization, res) => {
   // Hash the password before saving the organization to the DB
   bcrypt
@@ -166,7 +169,7 @@ router.post("/api/organizations/login", (req, res) => {
  * @action  DESTROY
  * @desc    Delete An organization by organization ID
  */
-router.delete("/api/organizations/:id", (req, res) => {
+router.delete("/api/organizations/:id", auth, (req, res) => {
     // Find the organization with the passed ID
     Organization.findById(req.params.id)
         .then(organization => {
@@ -207,7 +210,7 @@ router.delete("/api/organizations/:id", (req, res) => {
  * @action  UPDATE
  * @desc    Update a organizations by ID
  */
-router.patch("/api/organizations/:id", (req, res) => {
+router.patch("/api/organizations/:id", auth, (req, res) => {
     // Find the organization with the passed ID
     Organization.findById(req.params.id)
         .then(organization => {
