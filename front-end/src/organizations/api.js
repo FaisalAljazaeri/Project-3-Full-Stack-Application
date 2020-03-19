@@ -26,4 +26,21 @@ const organizationLogin = organization => {
         })
 }
 
-export { getAllOrganizations ,addNewOrganization,deleteOrganization, organizationLogin};
+// Logout Organization
+const organizationLogout = () => {
+    return axios.get(
+        `${apiUrl}/organizations/logout`,
+        {
+            withCredentials: true,
+            credentials: "include"
+        }
+    )
+}
+
+export { 
+            getAllOrganizations,
+            addNewOrganization,
+            deleteOrganization, 
+            organizationLogin , 
+            organizationLogout
+        };

@@ -3,7 +3,7 @@ import Posts from "../../posts/component/posts";
 import OrganizationForm from "./OrganizationForm";
 import { getAllOrganizations } from "../api";
 import PostForm from "../../posts/component/PostForm";
-import {deleteOrganization, organizationLogin} from '../api'
+import {deleteOrganization, organizationLogin, organizationLogout} from '../api'
 import './organization.css';
 export default class Organization extends Component {
     constructor(props) {
@@ -22,6 +22,19 @@ export default class Organization extends Component {
             .then(response => {
                 this.setState({
                     organizations: response.data.organizations
+                });
+            })
+            .catch(err => console.log(err));
+    }
+
+    // Logout Organization
+    logout = () => {
+        organizationLogout()
+            .then(res => {
+                this.setState({
+                    organizationLogged: false,
+                    organizationId: "",
+                    organizationPosts: ""
                 });
             })
             .catch(err => console.log(err));
@@ -106,7 +119,11 @@ export default class Organization extends Component {
     render() {
         return (
             <div className="div-org">
-                <OrganizationForm organizationLogin={this.organizationLogin} />
+                { this.state.organizationLogged
+                    ? <button onClick={this.logout}>Logout</button>
+                    : <OrganizationForm organizationLogin={this.organizationLogin} />
+                }
+
                 {/* Render add post form only when an organization is logged in */}
                 {this.state.organizationLogged ? (<>
                 <button className="delete-org-button" onClick={this.deleteOrg}>Delete organization</button>
