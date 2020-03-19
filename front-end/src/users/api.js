@@ -25,5 +25,15 @@ const loginUser = (user) => {
             credentials: "include"
         })
 };
+
+// Logout User
+const logoutUser = () => {
+    return axios.get(
+        `${apiUrl}/users/logout`, 
+        {
+            withCredentials: true,
+            credentials: "include"
+        })
+};
   
-export { getAllUsers ,createNewUser, deleteUserById, loginUser };
+export { getAllUsers ,createNewUser, deleteUserById, loginUser, logoutUser };

@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import Posts from "../../posts/component/posts";
 import UserForm from "./UserForm";
-import { getAllUsers, deleteUserById, loginUser } from "../api";
+import { getAllUsers, deleteUserById, loginUser, logoutUser } from "../api";
 
 export default class User extends Component {
   constructor(props) {
@@ -28,6 +28,20 @@ export default class User extends Component {
         console.log("result", response.data.users);
       })
       //if there  any error
+      .catch(err => console.log(err));
+  }
+
+  logout = () => {
+    // Call API to logout user
+    logoutUser()
+      .then(res => {
+        this.setState({
+          UserLog: false,
+          userLogged: "",
+          registeredPosts: [],
+          unregisteredPosts: []
+        });
+      })
       .catch(err => console.log(err));
   }
 
@@ -176,9 +190,6 @@ export default class User extends Component {
   render() {
     const SelectedPosts = this.state.showRegisteredPosts ? (
       <>
-        {/* Create Button For Delete User */}
-        <button onClick={this.deleteUser}>Delete User</button>
-
         {/* Registred Posts: */}
         <Posts
           posts={this.state.registeredPosts}
@@ -206,7 +217,15 @@ export default class User extends Component {
     return (
       //send the method UserLog to userform and display the post
       <div>
-        <UserForm UserLog={this.UserLog} />
+      {this.state.UserLog ? (
+          <>
+              <button onClick={this.deleteUser}>Delete User</button>
+              <button onClick={this.logout}>Logout</button>
+          </>
+      ) : (
+          <UserForm UserLog={this.UserLog} />
+      )}
+
         <button onClick={this.toggleShowPosts}>{btnText}</button>
         {SelectedPosts}
       </div>
