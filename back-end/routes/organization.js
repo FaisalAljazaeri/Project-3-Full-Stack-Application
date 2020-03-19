@@ -124,6 +124,9 @@ router.post("/api/organizations/login", (req, res) => {
           .status(500)
           .json({ msg: "Please enter both name and password" });
   }
+  // Var to hold org ID
+  let orgId = 0;
+
   // Authenricate Organization
   Organization.findOne({ name: organization.name })
       .then(organizationDoc => {
@@ -131,6 +134,8 @@ router.post("/api/organizations/login", (req, res) => {
           if (!organizationDoc) {
               return res.status(500).json({ msg: "Name doesn't exist" });
           }
+          //set org ID
+          orgId = organizationDoc._id;
           // Check if the given password matches the one in the database
           return bcrypt.compare(organization.password, organizationDoc.password);
       })
@@ -145,6 +150,7 @@ router.post("/api/organizations/login", (req, res) => {
               // Save the issued token in cookies
               return res.cookie("organizationToken", token, { httpOnly: true })
                   .status(200)
+                  .json({organization: {id: orgId, name: organization.name}})
                   .end();
           }
           // Case of wrong password

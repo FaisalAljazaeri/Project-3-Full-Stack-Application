@@ -14,4 +14,10 @@ const addNewOrganization =(organization)=>{
 const deleteOrganization = (id) => {
     return axios.delete(`${apiUrl}/organizations/${id}`);
   }
-export { getAllOrganizations ,addNewOrganization,deleteOrganization};
+
+// Login Organization
+const organizationLogin = organization => {
+    return axios.post(`${apiUrl}/organizations/login`, {organization})
+}
+
+export { getAllOrganizations ,addNewOrganization,deleteOrganization, organizationLogin};
