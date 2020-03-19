@@ -8,7 +8,7 @@ body {
 	height: 100%;
 	margin: 0;
 	padding: 0;
-	background: rgb(238, 234, 234);
+	background: rgba(255, 255, 255, 0.233);
     overflow: auto;
     box-sizing: border-box;
 }
@@ -30,19 +30,19 @@ body {
     text-align: center;
 }
 h2{
-    color: rgba(230, 199, 65, 0.658);
+    color: rgba(190, 76, 68, 0.658);
     text-align: center;
     text-transform: uppercase;
 }
 .label-org{
     font-family: serif;
-    font-size: 50px;
-    color: rgba(146, 145, 143, 0.473);
+    font-size: 40px;
+    color: rgba(190, 76, 68, 0.658);
 }
 .label-user{
     font-family: serif;
-    font-size: 50px;
-    color: rgba(146, 145, 143, 0.473);
+    font-size: 40px;
+    color: rgba(190, 76, 68, 0.658);
 }
 .icon{
     margin: 45px;
