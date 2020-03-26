@@ -150,11 +150,8 @@ router.post("/api/organizations/login", (req, res) => {
               const token = jwt.sign(payload, process.env.JWT_SECRET, {
                   expiresIn: "12h"
               });
-              // Save the issued token in cookies
-              return res.cookie("organizationToken", token, { httpOnly: true })
-                  .status(200)
-                  .json({organization: {id: orgId, name: organization.name}})
-                  .end();
+              // Return the token and Organization object in the response
+              return res.status(200).json({organization: {id: orgId, name: organization.name}, token});
           }
           // Case of wrong password
           return res.status(500).json({ msg: "wrong password" });

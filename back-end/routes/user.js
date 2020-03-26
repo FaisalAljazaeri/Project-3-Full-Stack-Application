@@ -146,11 +146,8 @@ router.post("/api/users/login", (req, res) => {
                 const token = jwt.sign(payload, process.env.JWT_SECRET, {
                     expiresIn: "12h"
                 });
-                // Save the issued token in cookies
-                return res.cookie("userToken", token, { httpOnly: true })
-                    .status(200)
-                    .json({user:{name: user.name, id: userId}})
-                    .end();
+                // Respond With the Generated JWT and User object
+                return res.status(200).json({user:{name: user.name, id: userId}, token});
             }
             // Case of wrong password
             return res.status(500).json({ msg: "wrong password" });
